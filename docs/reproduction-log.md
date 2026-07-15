@@ -88,6 +88,34 @@ the classifier; run XOR generation and record the tabpfn classifier utility as
 - Status: generation `EXECUTED`; classifier metric `NOT_RUN`. Records in
   `results/summaries/xor_xor_stress_test_{1,2}_features.json`.
 
+## 2026-07-16: SCM + artificial_characters demos (#4, lighter subset)
+
+Decision (from the user): run only the lighter demos now; defer heavier
+`adult.py` (30 iterations) and `person_activity.py` (5000 samples).
+
+- Ran the *unmodified* official `scm.py --prior-function rff` and
+  `artificial_characters.py` (both `tabicl`) via `scripts/run_experiment.py`.
+- **SCM (rff):** `EXECUTED`, 739 s. 15 synthetic CSVs, 17 checkpoints. Final
+  metrics — classifier acc **61.08%**, macro F1 **61.03**, AUC **64.14**; 5/6/7-way
+  WSD = **0.1460 / 0.1860 / 0.2243**. DP `epsilon=1.0, delta=2.73e-6,
+  noise_multiplier=15.02, num_iterations=14`.
+- **Artificial Characters:** `EXECUTED`, 224 s. 15 synthetic CSVs, 17 checkpoints.
+  Multiclass, so no AUC. Final metrics — classifier acc **51.60%**, macro F1
+  **50.92**; 5/6/7-way WSD = **0.1519 / 0.1862 / 0.2175**. DP `epsilon=1.0,
+  delta=1.58e-5, noise_multiplier=13.57, num_iterations=14`.
+- Both are `EXECUTED`, **not** `REPRODUCED`: no official published number was
+  compared against yet.
+- Records: `results/summaries/experiment_scm_rff.json`,
+  `results/summaries/experiment_artificial_characters.json`.
+- Performance note: high-degree WSD (5/6/7-way) dominates SCM runtime — it evaluates
+  ~92 optimal-transport problems per iteration. `tabicl` inference adds ~30 s/iter.
+
+## Deferred (follow-up)
+
+- SCM `tree` and `nn` prior functions.
+- `adult.py` (30 iterations) and `person_activity.py` (5000 samples).
+- XOR classifier accuracy (needs `TABPFN_TOKEN`).
+
 ## Pending decisions
 
 - ~~Official DPSDA commit SHA.~~ `9078c67995499e6769113780200bbf1d788d3d60`.
@@ -105,3 +133,5 @@ the classifier; run XOR generation and record the tabpfn classifier utility as
 | 2026-07-15 | XOR (1 feature) | `python xor_stress_test.py --num-features 1` | FAILED | 7.8 s | `TabPFNLicenseError` (needs `TABPFN_TOKEN`) |
 | 2026-07-16 | XOR (1 feature) | `xor_no_classifier.py --num-features 1` | EXECUTED | 5.4 s | generation OK; classifier NOT_RUN |
 | 2026-07-16 | XOR (2 features) | `xor_no_classifier.py --num-features 2` | EXECUTED | 5.7 s | generation OK; classifier NOT_RUN |
+| 2026-07-16 | SCM (rff) | `python scm.py --prior-function rff` | EXECUTED | 739 s | acc 61.08%, F1 61.03, AUC 64.14; WSD 0.146/0.186/0.224 |
+| 2026-07-16 | Artificial Characters | `python artificial_characters.py` | EXECUTED | 224 s | acc 51.60%, F1 50.92; WSD 0.152/0.186/0.217 |

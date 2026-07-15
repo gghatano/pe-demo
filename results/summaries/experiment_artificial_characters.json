@@ -1,0 +1,51 @@
+{
+  "experiment_name": "artificial_characters",
+  "official_script_path": "example/tabular/artificial_characters.py",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python artificial_characters.py",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "a74d501c43eaefc3d955d3e0313a2665ea67df26",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Artificial Characters (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/artificial-characters/",
+  "started_at_utc": "2026-07-15T22:18:41.295884+00:00",
+  "runtime_seconds": 224.23,
+  "returncode": 0,
+  "reproduction_status": "EXECUTED",
+  "failure_reason": null,
+  "artifacts": {
+    "experiment_folders": [
+      "artificial-characters_composite_population"
+    ],
+    "artificial-characters_composite_population": {
+      "copied_to": "results\\raw\\artificial_characters\\artificial-characters_composite_population",
+      "synthetic_csvs": 15,
+      "checkpoint_files": 17,
+      "log_txt_present": true,
+      "final_metrics": {
+        "classifier_test_acc": 51.6,
+        "classifier_test_f1": 50.92,
+        "wsd_5way": 0.1518517,
+        "wsd_6way": 0.1862218,
+        "wsd_7way": 0.21747888,
+        "dp": {
+          "epsilon": 1.0,
+          "delta": 1.575422064457033e-05,
+          "noise_multiplier": 13.572881987541077,
+          "accounted_num_iterations": 14
+        }
+      }
+    }
+  },
+  "console_log": "results\\logs\\experiment_artificial_characters_console.log"
+}
