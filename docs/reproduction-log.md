@@ -127,6 +127,29 @@ Decision (from the user): run only the lighter demos now; defer heavier
 - Report pipeline (clean checkout): `uv sync` → run experiments (or reuse tracked
   summaries) → `collect_results.py` → `make_figures.py` → `build_html.py`.
 
+## 2026-07-16: Report kit integration + GitHub Pages (feature-007)
+
+- Adopted the report builder from
+  [gghatano/synth-report-kit](https://github.com/gghatano/synth-report-kit) (MIT):
+  vendored `ark/` (`build_html.py`, `context.py`) and drive it from
+  `scripts/build_site.py` (single `PAGES` config). Replaces the earlier
+  `scripts/build_html.py` (removed). The builder adds a hero header + tab bar,
+  TOC sidebar, base64 image embedding, mermaid, MathJax, and citation/badge styling.
+- `content/*.md` figures now use standard Markdown image links (base64-embedded by
+  the builder). The experiments table is injected by `collect_results.py` between
+  `<!-- AUTO:experiments_table -->` markers, so report numbers stay CSV-sourced.
+- Applied report-quality skills brought from the kit
+  (`.claude/skills/{stop-ai-slop-jp,report-review,report-skeleton,publish-check,
+  repro-engineering-review}` + `.claude/docs/documentation-conventions.md`):
+  added numbered figure captions, a single-run (non-deterministic) caveat, and
+  "本実験条件では" scoping in the discussion.
+- `.github/workflows/deploy-pages.yml`: on push to `main`, builds HTML from Markdown
+  with light deps only (`uv run --no-project --with ...`, no torch/tabpfn) and
+  deploys `htmls/` to GitHub Pages. **Requires** Settings → Pages → Source =
+  "GitHub Actions".
+- Report pipeline (clean checkout): `collect_results.py` → `make_figures.py`
+  → `build_site.py`. The Actions workflow runs these three and deploys.
+
 ## Deferred (follow-up)
 
 - SCM `tree` and `nn` prior functions.
@@ -134,6 +157,7 @@ Decision (from the user): run only the lighter demos now; defer heavier
 - XOR classifier accuracy (needs `TABPFN_TOKEN`).
 - Comparison against official published numbers to move any experiment from
   `EXECUTED` to `REPRODUCED`.
+- Enable Pages source = GitHub Actions in repo settings (one-time, manual).
 
 ## Pending decisions
 

@@ -5,23 +5,42 @@
 
 ## 実験別サマリ
 
-<!-- INCLUDE:experiments_table -->
+<!-- AUTO:experiments_table START -->
+
+| 実験 | データ | 判定 | 実行時間(s) | 分類器 | acc | F1 | AUC | WSD | ε | 備考 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| artificial_characters | Artificial Characters (real) | EXECUTED | 224.23 | tabicl | 51.6 | 50.92 | – | 5-way=0.1519; 6-way=0.1862; 7-way=0.2175 | 1.0 | – |
+| breast_cancer | Breast Cancer (real) | EXECUTED | 230.53 | tabicl | 91.86 | 91.44 | 98.73 | 1-way=0.1644; 2-way=0.2767; 3-way=0.3749 | 1.0 | – |
+| scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
+| xor_stress_test_1_features | XOR stress test (1 feature) | EXECUTED | 5.41 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_2_features | XOR stress test (2 feature) | EXECUTED | 5.67 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test | XOR stress test (simulated) | FAILED | 7.82 | tabpfn | – | – | – | – | 1.0 | tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download |
+
+<!-- AUTO:experiments_table END -->
+
+> 本ページの数値はいずれも各実験 1 run の値である。PE の生成はシードされず非決定的
+> なので、run 間の揺れ（mean±std）は本フェーズでは測っていない。数値は「傾向」として
+> 読み、単一 run の一致を過大に解釈しない。
 
 ## 反復に伴う精度の推移
 
-synthetic-train → real-test の分類器精度は、PE の反復とともに上昇する。Breast
-Cancer は約 52% から **91.86%** まで改善し、進化が有効に機能している。SCM(rff) と
-Artificial Characters は高次 marginal の難しい設定で、それぞれ約 **61%**・**52%**
-で頭打ちとなる。
+図 1 に、synthetic-train → real-test の分類器精度の反復推移を示す。Breast Cancer は
+約 52% から 91.86% まで改善し、本実験条件では反復が精度を押し上げている。SCM(rff) と
+Artificial Characters は高次 marginal を要する設定で、それぞれ約 61%・52% で頭打ちに
+なった。
 
-<!-- INCLUDE:figure:accuracy_vs_iteration -->
+![PE反復に伴う synthetic-train→real-test 精度](results/figures/accuracy_vs_iteration.png)
+
+*図 1: PE 反復ごとの分類器テスト精度（3 デモ、各 1 run）。*
 
 ## 反復に伴う marginal 距離の推移
 
-k-way Wasserstein marginal 距離は、次数が上がるほど大きくなる（高次相関ほど
-一致が難しい）。反復を通じて概ね横ばい〜微減で推移する。
+図 2 に k-way Wasserstein marginal 距離の推移を示す。次数が上がるほど距離は大きく、
+高次相関ほど一致が難しい。反復を通じては概ね横ばいから微減で推移した。
 
-<!-- INCLUDE:figure:wsd_vs_iteration -->
+![PE反復に伴う k-way Wasserstein marginal 距離](results/figures/wsd_vs_iteration.png)
+
+*図 2: PE 反復ごとの k-way Wasserstein marginal 距離（実験別サブプロット、各 1 run）。*
 
 ## 最終反復の指標
 

@@ -30,6 +30,19 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SUMMARIES = REPO_ROOT / "results" / "summaries"
 RAW = REPO_ROOT / "results" / "raw"
+CONTENT = REPO_ROOT / "content"
+
+# content ページに実験表を差し込むためのマーカー（数値は CSV 由来で手入力しない）。
+TABLE_START = "<!-- AUTO:experiments_table START -->"
+TABLE_END = "<!-- AUTO:experiments_table END -->"
+
+# 表示カラム（見出し）。
+DISPLAY_COLS = [
+    ("experiment", "実験"), ("dataset", "データ"), ("status", "判定"),
+    ("runtime_s", "実行時間(s)"), ("classifier", "分類器"),
+    ("test_acc", "acc"), ("test_f1", "F1"), ("test_auc", "AUC"),
+    ("wsd", "WSD"), ("epsilon", "ε"), ("notes", "備考"),
+]
 
 # Columns for the tidy experiments table.
 COLUMNS = [
@@ -134,6 +147,38 @@ def extract_iterations(log_txt: Path) -> list[dict]:
     return rows
 
 
+def _table_md(records: list[dict]) -> str:
+    header = "| " + " | ".join(h for _, h in DISPLAY_COLS) + " |"
+    sep = "| " + " | ".join("---" for _ in DISPLAY_COLS) + " |"
+    body = []
+    for r in records:
+        cells = []
+        for key, _ in DISPLAY_COLS:
+            v = str(r.get(key, "")).replace("|", "\\|")
+            cells.append(v if v else "–")
+        body.append("| " + " | ".join(cells) + " |")
+    return "\n".join([header, sep, *body])
+
+
+def inject_table(records: list[dict]) -> list[str]:
+    """content ページ内の AUTO マーカー間に、CSV 由来の実験表を差し込む。"""
+    table = _table_md(records)
+    updated = []
+    for md_path in sorted(CONTENT.glob("*.md")):
+        text = md_path.read_text(encoding="utf-8")
+        if TABLE_START not in text:
+            continue
+        new = re.sub(
+            re.escape(TABLE_START) + r".*?" + re.escape(TABLE_END),
+            f"{TABLE_START}\n\n{table}\n\n{TABLE_END}",
+            text, flags=re.DOTALL,
+        )
+        if new != text:
+            md_path.write_text(new, encoding="utf-8")
+            updated.append(str(md_path.relative_to(REPO_ROOT)))
+    return updated
+
+
 def main() -> int:
     SUMMARIES.mkdir(parents=True, exist_ok=True)
     records = []
@@ -176,6 +221,8 @@ def main() -> int:
     print(f"experiments: {len(records)} rows -> results/summaries/experiments.{{csv,json}}")
     for s in series_written:
         print(f"iterations  -> {s}")
+    for u in inject_table(records):
+        print(f"table       -> {u}")
     return 0
 
 
