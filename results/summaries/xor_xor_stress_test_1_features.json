@@ -1,0 +1,54 @@
+{
+  "experiment_name": "xor_stress_test_1_features",
+  "official_script_path": "example/tabular/xor_stress_test.py --num-features 1",
+  "deviation": "TabClassifier(model_name='tabpfn') removed; generation/DP unchanged.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/xor_no_classifier.py --num-features 1",
+  "python_version": "3.12.13",
+  "uv_lock_commit": "85b9cad85ffe7bbcc589787f5e1dcd1a39e5315a",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "XOR stress test (1 feature)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/sim/xor-stress-test/1_feature_xor/",
+  "num_iterations": 20,
+  "num_samples": 1000,
+  "num_private_samples": 35000,
+  "started_at_utc": "2026-07-15T22:02:51.714141+00:00",
+  "runtime_seconds": 5.41,
+  "reproduction_status": "EXECUTED",
+  "metrics": {
+    "classifier_test_acc": "NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN)"
+  },
+  "artifacts": {
+    "log_relpath": "results\\raw\\xor\\xor_stress_test_1_features\\log.txt",
+    "synthetic_csvs": [
+      "000000000.csv",
+      "000000001.csv",
+      "000000002.csv",
+      "000000003.csv",
+      "000000004.csv",
+      "000000005.csv",
+      "000000006.csv",
+      "000000007.csv",
+      "000000008.csv",
+      "000000009.csv",
+      "000000010.csv",
+      "000000011.csv",
+      "000000012.csv",
+      "000000013.csv",
+      "000000014.csv",
+      "000000015.csv",
+      "000000016.csv",
+      "000000017.csv",
+      "000000018.csv",
+      "000000019.csv"
+    ],
+    "checkpoint_files": 22
+  }
+}
