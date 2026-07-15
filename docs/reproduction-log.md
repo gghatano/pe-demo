@@ -110,11 +110,30 @@ Decision (from the user): run only the lighter demos now; defer heavier
 - Performance note: high-degree WSD (5/6/7-way) dominates SCM runtime — it evaluates
   ~92 optimal-transport problems per iteration. `tabicl` inference adds ~30 s/iter.
 
+## 2026-07-16: Aggregation + Markdown/HTML report (#6)
+
+- `scripts/collect_results.py` → `results/summaries/experiments.{csv,json}` (6 rows)
+  and `results/summaries/iterations/*.csv` (per-iteration series parsed from the
+  official `log.txt`, because `CSVPrint`'s per-metric files are empty on Windows —
+  metric names embed a `:` that is illegal in Windows filenames).
+- `scripts/make_figures.py` → `results/figures/{accuracy,wsd}_vs_iteration.png`
+  (regenerated from the tracked iteration CSVs; not committed).
+- Authored `content/*.md` (7 pages) as the report source of truth. Result numbers are
+  injected from `experiments.csv` and figures embedded as base64 via include markers,
+  so no numbers are hand-typed into the report body.
+- `scripts/build_html.py` → `htmls/*.html` (single `PAGES` config, top tabs with
+  active state, auto TOC from h2/h3, responsive 2→1 column, MathJax, base64 figures).
+  HTML is generated from Markdown only and is gitignored (regenerated on build).
+- Report pipeline (clean checkout): `uv sync` → run experiments (or reuse tracked
+  summaries) → `collect_results.py` → `make_figures.py` → `build_html.py`.
+
 ## Deferred (follow-up)
 
 - SCM `tree` and `nn` prior functions.
 - `adult.py` (30 iterations) and `person_activity.py` (5000 samples).
 - XOR classifier accuracy (needs `TABPFN_TOKEN`).
+- Comparison against official published numbers to move any experiment from
+  `EXECUTED` to `REPRODUCED`.
 
 ## Pending decisions
 
