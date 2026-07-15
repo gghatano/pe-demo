@@ -12,6 +12,9 @@ __pycache__/
 # Worktrees
 gitworktree/
 
+# Vendored upstream checkout (DPSDA at pinned SHA), obtained via scripts.
+external/
+
 # Data and generated experiment outputs
 data/cache/
 results/raw/

@@ -1,0 +1,72 @@
+{
+  "experiment_name": "breast_cancer",
+  "official_script_path": "example/tabular/breast_cancer.py",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python breast_cancer.py",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "b986baf220d0eaa18d99cb29ba1c4b3ff1111f68",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Breast Cancer (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/breast-cancer/",
+  "started_at_utc": "2026-07-15T14:20:53.794266+00:00",
+  "runtime_seconds": 230.53,
+  "returncode": 0,
+  "reproduction_status": "EXECUTED",
+  "artifacts": {
+    "experiment_folders": [
+      "breast-cancer_composite_population"
+    ],
+    "breast-cancer_composite_population": {
+      "copied_to": "results\\raw\\breast_cancer\\breast-cancer_composite_population",
+      "synthetic_csvs": [
+        "000000000.csv",
+        "000000001.csv",
+        "000000002.csv",
+        "000000003.csv",
+        "000000004.csv",
+        "000000005.csv",
+        "000000006.csv",
+        "000000007.csv",
+        "000000008.csv",
+        "000000009.csv",
+        "000000010.csv",
+        "000000011.csv",
+        "000000012.csv",
+        "000000013.csv",
+        "000000014.csv",
+        "000000015.csv",
+        "000000016.csv",
+        "000000017.csv",
+        "000000018.csv",
+        "000000019.csv"
+      ],
+      "checkpoint_files": 22,
+      "log_txt_present": true,
+      "final_metrics": {
+        "classifier_test_acc": 91.86,
+        "classifier_test_f1": 91.44,
+        "classifier_test_auc": 98.73,
+        "wsd_1way": 0.1644153,
+        "wsd_2way": 0.27671728,
+        "wsd_3way": 0.37492658,
+        "dp": {
+          "epsilon": 1.0,
+          "delta": 0.00041970816968923,
+          "noise_multiplier": 12.265953611888033,
+          "accounted_num_iterations": 19
+        }
+      }
+    }
+  },
+  "console_log": "results\\logs\\smoke_breast_cancer_console.log"
+}

@@ -1,0 +1,14 @@
+[project]
+name = "pe-demo"
+version = "0.1.0"
+description = "Reproduction of official Microsoft DPSDA Tabular Private Evolution (Tab-PE) demos."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "azure-identity>=1.25.3",
+    # Pinned to the DPSDA commit investigated in docs/research/official-implementation.md.
+    "private-evolution[tabular] @ git+https://github.com/microsoft/DPSDA.git@9078c67995499e6769113780200bbf1d788d3d60",
+]
+
+[tool.uv]
+# Allow building from the pinned Git source.
