@@ -1,0 +1,30 @@
+{
+  "experiment_name": "xor_stress_test",
+  "official_script_path": "example/tabular/xor_stress_test.py --num-features 1",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python xor_stress_test.py --num-features 1",
+  "classifier_model": "tabpfn",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "b986baf220d0eaa18d99cb29ba1c4b3ff1111f68",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "XOR stress test (simulated)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/sim/xor-stress-test/",
+  "started_at_utc": "2026-07-15T14:28:08.223990+00:00",
+  "runtime_seconds": 7.82,
+  "returncode": 1,
+  "reproduction_status": "FAILED",
+  "failure_reason": "tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download",
+  "artifacts": {
+    "experiment_folders": []
+  },
+  "console_log": "results\\logs\\smoke_xor_stress_test_console.log"
+}
