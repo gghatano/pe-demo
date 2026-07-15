@@ -1,0 +1,73 @@
+name: Deploy report to GitHub Pages
+
+# content/*.md から自己完結 HTML を生成し、GitHub Pages に公開する。
+# 重い実験依存（torch/tabpfn 等）は入れず、レポート生成に必要な軽量依存だけを
+# uv の --no-project --with で使うため数十秒で終わる。
+# 事前準備: リポジトリの Settings → Pages → Source を「GitHub Actions」にすること。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "ark/**"
+      - "scripts/build_site.py"
+      - "scripts/collect_results.py"
+      - "scripts/make_figures.py"
+      - "results/summaries/**"
+      - "config.yaml"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      # 実験は再実行しない。追跡済みの results/summaries から表・図・HTML を生成する。
+      - name: Aggregate results (table injection)
+        run: >-
+          uv run --no-project
+          --with matplotlib --with markdown --with pygments
+          --with pymdown-extensions --with pyyaml
+          python scripts/collect_results.py
+      - name: Make figures
+        run: >-
+          uv run --no-project
+          --with matplotlib --with markdown --with pygments
+          --with pymdown-extensions --with pyyaml
+          python scripts/make_figures.py
+      - name: Build site (htmls/)
+        run: >-
+          uv run --no-project
+          --with matplotlib --with markdown --with pygments
+          --with pymdown-extensions --with pyyaml
+          python scripts/build_site.py
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: htmls
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

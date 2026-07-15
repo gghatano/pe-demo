@@ -37,7 +37,11 @@ git -C external/DPSDA checkout 9078c67995499e6769113780200bbf1d788d3d60
 - 集計: `scripts/collect_results.py` → `results/summaries/experiments.{csv,json}` と
   `results/summaries/iterations/*.csv`。
 - 図: `scripts/make_figures.py` → `results/figures/*.png`。
-- HTML: `scripts/build_html.py` → `htmls/*.html`（Markdown から生成、直接編集禁止）。
+- HTML: `scripts/build_site.py` → `htmls/*.html`（Markdown から生成、直接編集禁止）。
+  ビルダー本体 `ark/` は [gghatano/synth-report-kit](https://github.com/gghatano/synth-report-kit)（MIT）を取り込んだもの。
+- Pages 公開: `.github/workflows/deploy-pages.yml`（GitHub Actions）。`main` への push で
+  Markdown から HTML を生成し Pages へデプロイする。事前に Settings → Pages → Source を
+  「GitHub Actions」に設定する必要がある。
 
 ## Windows / 環境依存の問題と対処
 
