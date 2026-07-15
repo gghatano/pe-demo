@@ -1,0 +1,52 @@
+{
+  "experiment_name": "scm_tree",
+  "official_script_path": "example/tabular/scm.py --prior-function tree",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scm.py --prior-function tree",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "f010e1f276ebb3fefeebfcf20454826812893fdf",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "SCM (simulated)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/sim/scm/",
+  "started_at_utc": "2026-07-15T23:10:56.002142+00:00",
+  "runtime_seconds": 742.1,
+  "returncode": 0,
+  "reproduction_status": "EXECUTED",
+  "failure_reason": null,
+  "artifacts": {
+    "experiment_folders": [
+      "scm_tree"
+    ],
+    "scm_tree": {
+      "copied_to": "results\\raw\\scm\\scm_tree",
+      "synthetic_csvs": 15,
+      "checkpoint_files": 17,
+      "log_txt_present": true,
+      "final_metrics": {
+        "classifier_test_acc": 66.68,
+        "classifier_test_f1": 66.66,
+        "classifier_test_auc": 72.61,
+        "wsd_5way": 0.14235979,
+        "wsd_6way": 0.18275252,
+        "wsd_7way": 0.22104822,
+        "dp": {
+          "epsilon": 1.0,
+          "delta": 2.730683970301006e-06,
+          "noise_multiplier": 15.021326291582854,
+          "accounted_num_iterations": 14
+        }
+      }
+    }
+  },
+  "console_log": "results\\logs\\experiment_scm_tree_console.log"
+}
