@@ -51,7 +51,9 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | artificial_characters | Artificial Characters (real) | EXECUTED | 224.23 | tabicl | 51.6 | 50.92 | – | 5-way=0.1519; 6-way=0.1862; 7-way=0.2175 | 1.0 | – |
 | breast_cancer | Breast Cancer (real) | EXECUTED | 230.53 | tabicl | 91.86 | 91.44 | 98.73 | 1-way=0.1644; 2-way=0.2767; 3-way=0.3749 | 1.0 | – |
+| scm_nn | SCM (simulated) | EXECUTED | 745.5 | tabicl | 85.48 | 85.46 | 93.8 | 5-way=0.1432; 6-way=0.1817; 7-way=0.2174 | 1.0 | – |
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
+| scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |
 | xor_stress_test_1_features | XOR stress test (1 feature) | EXECUTED | 5.41 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
 | xor_stress_test_2_features | XOR stress test (2 feature) | EXECUTED | 5.67 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
 | xor_stress_test | XOR stress test (simulated) | FAILED | 7.82 | tabpfn | – | – | – | – | 1.0 | tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download |
@@ -64,8 +66,10 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
 
 - Breast Cancer では synthetic-train→real-test 精度が反復とともに約 52% → **91.86%**
   まで上昇し、PE の進化が有効に機能していることが観察できた。
-- SCM(rff) と Artificial Characters は高次(5/6/7-way)の marginal 距離を評価する
-  難しい設定であり、精度はそれぞれ約 **61%**・**52%** で頭打ちとなった。
+- SCM は 3 prior で精度が `nn`(**85.48%**) > `tree`(**66.68%**) > `rff`(**61.08%**) と開いた。
+  同じ Tab-PE 設定・同じ `epsilon=1.0` でも、元データの生成過程（prior）で下流精度が
+  大きく変わる。一方 5/6/7-way の marginal 距離は 3 prior でほぼ同水準だった。
+- Artificial Characters は高次 marginal を要する多クラス設定で、精度は約 **52%** で頭打ち。
 - いずれも `epsilon=1.0` の DP 制約下での結果である。
 
 ## 8. 再現性評価

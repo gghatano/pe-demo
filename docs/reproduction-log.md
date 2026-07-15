@@ -150,14 +150,25 @@ Decision (from the user): run only the lighter demos now; defer heavier
 - Report pipeline (clean checkout): `collect_results.py` → `make_figures.py`
   → `build_site.py`. The Actions workflow runs these three and deploys.
 
+## 2026-07-16: SCM tree/nn priors (#14)
+
+- Ran the unmodified official `scm.py --prior-function tree` and `nn`
+  (`scripts/run_experiment.py`). Both `EXECUTED` (~742 s / ~745 s).
+- Final metrics — SCM(tree): acc **66.68%**, F1 66.66, AUC 72.61; 5/6/7-way WSD
+  0.1424/0.1828/0.2210. SCM(nn): acc **85.48%**, F1 85.46, AUC 93.80; WSD
+  0.1432/0.1817/0.2174. DP `epsilon=1.0, delta=2.73e-6, noise_multiplier=15.02`.
+- Observation: across SCM priors, downstream accuracy differs a lot
+  (nn 85% > tree 67% > rff 61%) while 5/6/7-way marginal distance stays within
+  ~0.01. All `EXECUTED`, not `REPRODUCED` (no official comparison number).
+- SCM prior set (rff/tree/nn) is now complete.
+
 ## Deferred (follow-up)
 
-- SCM `tree` and `nn` prior functions.
-- `adult.py` (30 iterations) and `person_activity.py` (5000 samples).
+- `adult.py` (30 iterations) — #15.
+- `person_activity.py` (5000 samples) — #16.
 - XOR classifier accuracy (needs `TABPFN_TOKEN`).
 - Comparison against official published numbers to move any experiment from
   `EXECUTED` to `REPRODUCED`.
-- Enable Pages source = GitHub Actions in repo settings (one-time, manual).
 
 ## Pending decisions
 
@@ -178,3 +189,5 @@ Decision (from the user): run only the lighter demos now; defer heavier
 | 2026-07-16 | XOR (2 features) | `xor_no_classifier.py --num-features 2` | EXECUTED | 5.7 s | generation OK; classifier NOT_RUN |
 | 2026-07-16 | SCM (rff) | `python scm.py --prior-function rff` | EXECUTED | 739 s | acc 61.08%, F1 61.03, AUC 64.14; WSD 0.146/0.186/0.224 |
 | 2026-07-16 | Artificial Characters | `python artificial_characters.py` | EXECUTED | 224 s | acc 51.60%, F1 50.92; WSD 0.152/0.186/0.217 |
+| 2026-07-16 | SCM (tree) | `python scm.py --prior-function tree` | EXECUTED | 742 s | acc 66.68%, F1 66.66, AUC 72.61; WSD 0.142/0.183/0.221 |
+| 2026-07-16 | SCM (nn) | `python scm.py --prior-function nn` | EXECUTED | 745 s | acc 85.48%, F1 85.46, AUC 93.80; WSD 0.143/0.182/0.217 |

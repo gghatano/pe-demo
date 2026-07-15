@@ -32,6 +32,22 @@
     "_source_json": "results\\summaries\\smoke_breast_cancer.json"
   },
   {
+    "experiment": "scm_nn",
+    "dataset": "SCM (simulated)",
+    "command": "python scm.py --prior-function nn",
+    "status": "EXECUTED",
+    "runtime_s": 745.5,
+    "classifier": "tabicl",
+    "test_acc": 85.48,
+    "test_f1": 85.46,
+    "test_auc": 93.8,
+    "wsd": "5-way=0.1432; 6-way=0.1817; 7-way=0.2174",
+    "epsilon": 1.0,
+    "delta": 2.730683970301006e-06,
+    "notes": "",
+    "_source_json": "results\\summaries\\experiment_scm_nn.json"
+  },
+  {
     "experiment": "scm_rff",
     "dataset": "SCM (simulated)",
     "command": "python scm.py --prior-function rff",
@@ -46,6 +62,22 @@
     "delta": 2.730683970301006e-06,
     "notes": "",
     "_source_json": "results\\summaries\\experiment_scm_rff.json"
+  },
+  {
+    "experiment": "scm_tree",
+    "dataset": "SCM (simulated)",
+    "command": "python scm.py --prior-function tree",
+    "status": "EXECUTED",
+    "runtime_s": 742.1,
+    "classifier": "tabicl",
+    "test_acc": 66.68,
+    "test_f1": 66.66,
+    "test_auc": 72.61,
+    "wsd": "5-way=0.1424; 6-way=0.1828; 7-way=0.2210",
+    "epsilon": 1.0,
+    "delta": 2.730683970301006e-06,
+    "notes": "",
+    "_source_json": "results\\summaries\\experiment_scm_tree.json"
   },
   {
     "experiment": "xor_stress_test_1_features",
