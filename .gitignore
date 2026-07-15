@@ -1,0 +1,36 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# uv and local env
+.python-version
+
+# Worktrees
+gitworktree/
+
+# Data and generated experiment outputs
+data/cache/
+results/raw/
+results/synthetic/
+results/checkpoints/
+results/logs/
+results/figures/
+
+# Keep small, curated summaries trackable.
+!results/
+!results/summaries/
+!results/summaries/*.csv
+!results/summaries/*.json
+
+# Generated HTML. Keep source Markdown as the source of truth.
+htmls/*.html
+!htmls/.nojekyll
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
