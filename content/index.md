@@ -49,6 +49,7 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
 
 | 実験 | データ | 判定 | 実行時間(s) | 分類器 | acc | F1 | AUC | WSD | ε | 備考 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| adult | Adult (real) | EXECUTED | 2864.62 | tabicl | 80.94 | 70.78 | 84.94 | 1-way=0.0292; 2-way=0.0527; 3-way=0.0758 | 1.0 | – |
 | artificial_characters | Artificial Characters (real) | EXECUTED | 224.23 | tabicl | 51.6 | 50.92 | – | 5-way=0.1519; 6-way=0.1862; 7-way=0.2175 | 1.0 | – |
 | breast_cancer | Breast Cancer (real) | EXECUTED | 230.53 | tabicl | 91.86 | 91.44 | 98.73 | 1-way=0.1644; 2-way=0.2767; 3-way=0.3749 | 1.0 | – |
 | scm_nn | SCM (simulated) | EXECUTED | 745.5 | tabicl | 85.48 | 85.46 | 93.8 | 5-way=0.1432; 6-way=0.1817; 7-way=0.2174 | 1.0 | – |
@@ -70,6 +71,9 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
   同じ Tab-PE 設定・同じ `epsilon=1.0` でも、元データの生成過程（prior）で下流精度が
   大きく変わる。一方 5/6/7-way の marginal 距離は 3 prior でほぼ同水準だった。
 - Artificial Characters は高次 marginal を要する多クラス設定で、精度は約 **52%** で頭打ち。
+- Adult は精度 **80.94%** に対し macro F1 は **70.78** と開いた。二値だが不均衡なため、
+  accuracy だけでは少数クラスの再現度を測れない。1/2/3-way の marginal 距離は
+  0.03/0.05/0.08 と小さく、低次の分布は比較的よく合っている。
 - いずれも `epsilon=1.0` の DP 制約下での結果である。
 
 ## 8. 再現性評価

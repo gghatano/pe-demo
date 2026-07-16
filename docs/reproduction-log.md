@@ -162,9 +162,20 @@ Decision (from the user): run only the lighter demos now; defer heavier
   ~0.01. All `EXECUTED`, not `REPRODUCED` (no official comparison number).
 - SCM prior set (rff/tree/nn) is now complete.
 
+## 2026-07-16: Adult (#15)
+
+- Ran the unmodified official `adult.py`. `EXECUTED`, 2865 s (~48 min; 30 iterations
+  over 1000 samples with tabicl each iteration).
+- Final metrics — acc **80.94%**, macro F1 **70.78**, AUC **84.94**; 1/2/3-way WSD
+  0.0292/0.0527/0.0758. DP `epsilon=1.0, delta=2.88e-6, noise_multiplier=21.56,
+  accounted num_iterations=29`. 30 synthetic CSVs, 32 checkpoints.
+- Observation: acc (80.94%) and macro F1 (70.78) diverge — Adult is an imbalanced
+  binary task, so accuracy alone overstates minority-class fidelity. Low-degree
+  (1/2/3-way) marginal distances are small (≤0.08), i.e. low-order distributions
+  match reasonably well. `EXECUTED`, not `REPRODUCED`.
+
 ## Deferred (follow-up)
 
-- `adult.py` (30 iterations) — #15.
 - `person_activity.py` (5000 samples) — #16.
 - XOR classifier accuracy (needs `TABPFN_TOKEN`).
 - Comparison against official published numbers to move any experiment from
@@ -191,3 +202,4 @@ Decision (from the user): run only the lighter demos now; defer heavier
 | 2026-07-16 | Artificial Characters | `python artificial_characters.py` | EXECUTED | 224 s | acc 51.60%, F1 50.92; WSD 0.152/0.186/0.217 |
 | 2026-07-16 | SCM (tree) | `python scm.py --prior-function tree` | EXECUTED | 742 s | acc 66.68%, F1 66.66, AUC 72.61; WSD 0.142/0.183/0.221 |
 | 2026-07-16 | SCM (nn) | `python scm.py --prior-function nn` | EXECUTED | 745 s | acc 85.48%, F1 85.46, AUC 93.80; WSD 0.143/0.182/0.217 |
+| 2026-07-16 | Adult | `python adult.py` | EXECUTED | 2865 s | acc 80.94%, F1 70.78, AUC 84.94; WSD 0.029/0.053/0.076 |
