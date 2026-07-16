@@ -1,0 +1,47 @@
+{
+  "experiment_name": "scm_nn_seed1",
+  "kind": "scm_seeded",
+  "official_script_path": "example/tabular/scm.py --prior-function nn",
+  "deviation": "np.random/random/torch seeded for reproducibility; algorithm unchanged.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/run_scm_seeded.py --prior-function nn --seed 1 --num-iterations 15",
+  "prior_function": "nn",
+  "classifier_model": "tabicl",
+  "seed": 1,
+  "python_version": "3.12.13",
+  "uv_lock_commit": "deccc368209cc55c42e7a3f9128b15032b392626",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "SCM (nn)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/sim/scm/nn/",
+  "num_iterations": 15,
+  "num_samples": 1000,
+  "num_private_samples": 35000,
+  "started_at_utc": "2026-07-16T10:32:46.298633+00:00",
+  "runtime_seconds": 738.92,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 85.8,
+    "classifier_test_f1": 85.78,
+    "classifier_test_auc": 93.87,
+    "wsd_5way": 0.14228849,
+    "wsd_6way": 0.1810364,
+    "wsd_7way": 0.2175155,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 2.730683970301006e-06,
+      "noise_multiplier": 15.021326291582854,
+      "accounted_num_iterations": 14
+    }
+  },
+  "artifacts": {
+    "log_relpath": "results\\raw\\scm_seeded\\scm_nn_seed1\\log.txt",
+    "synthetic_csvs": 15,
+    "checkpoint_files": 17
+  }
+}

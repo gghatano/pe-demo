@@ -14,6 +14,7 @@ on:
       - "scripts/build_site.py"
       - "scripts/collect_results.py"
       - "scripts/make_figures.py"
+      - "scripts/aggregate_seeds.py"
       - "results/summaries/**"
       - "config.yaml"
       - ".github/workflows/deploy-pages.yml"
@@ -50,6 +51,12 @@ jobs:
           --with matplotlib --with markdown --with pygments
           --with pymdown-extensions --with pyyaml
           python scripts/make_figures.py
+      - name: Aggregate multi-seed runs (mean/std figures)
+        run: |
+          uv run --no-project --with matplotlib python scripts/aggregate_seeds.py \
+            --glob "scm_*_seed*.json" --group prior_function --out scm_seed
+          uv run --no-project --with matplotlib python scripts/aggregate_seeds.py \
+            --glob "adult_embedding_*_seed*.json" --group variant --out adult_embedding_seed
       - name: Build site (htmls/)
         run: >-
           uv run --no-project

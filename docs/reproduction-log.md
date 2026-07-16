@@ -232,10 +232,33 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
 **Deferred to #22 / rest of #24**: full runs (3 variants × ≥3 seeds × 30 iterations),
 `content/adult-embedding.md`, and the utility/fidelity/consistency figures.
 
+## 2026-07-16: Seed control + SCM stability (#22)
+
+- Randomness audit: the entire tabular generation path uses NumPy's global RNG —
+  `TabularAPI` (`np.random.choice/randint/uniform/rand`), `pe.dp.gaussian.add_noise`
+  (`np.random.normal`), `PEPopulation` sample selection (`np.random.choice`). The NN
+  histogram (torch, `lookahead_degree=0`) is a deterministic argmin and `tabicl`
+  inference is deterministic; `ComputeWSD` uses its own fixed `random_state=42`. So
+  `np.random.seed` fully determinizes generation + DP noise (no torch RNG seeding needed).
+- `scripts/experiments/run_scm_seeded.py` — official `scm.py` + `np.random/random/torch`
+  seeding; algorithm unchanged. `--prior-function --seed --num-iterations` CLI; seed saved
+  in each summary.
+- Same-seed reproducibility verified: two runs at seed 0 gave **bit-identical**
+  acc/F1/AUC/WSD; only runtime (wall-clock) varies.
+- Ran SCM `rff`/`tree`/`nn` × seeds `0,1,2` (9 full runs). Aggregated with
+  `scripts/aggregate_seeds.py` → `results/summaries/scm_seed_aggregate.{csv,json}` and
+  `results/figures/scm_seed_stability.png`.
+  - acc mean±std: **nn 86.01 ± 0.16**, **tree 67.58 ± 0.16**, **rff 61.08 ± 0.90**.
+  - 5/6/7-way WSD std ≤ 0.001 (prior-insensitive).
+- **Conclusion**: the prior gaps (nn−tree ≈ 18, tree−rff ≈ 6.5) dwarf the seed std
+  (0.16–0.90), so `nn > tree > rff` is stable against random variation — the single-run
+  ordering was not a fluke. Report distinguishes single-trial (§実験別サマリ) from the
+  3-seed mean±std section. Pages workflow now runs `aggregate_seeds.py`.
+
 ## Deferred (follow-up)
 
 - Full Adult-embedding experiment (3 variants × ≥3 seeds) + report pages/figures — #24
-  (implementation done; runs pending #22).
+  (implementation done; seed control now available from #22).
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.
