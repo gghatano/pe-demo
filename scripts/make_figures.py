@@ -87,10 +87,12 @@ def _f(row: dict, key: str):
 
 def main() -> int:
     FIGURES.mkdir(parents=True, exist_ok=True)
-    # Per-iteration figures cover the main demos; XOR is shown separately as a
-    # num-features trend (below), so exclude xor keys here to avoid clutter.
-    series = {p.stem: _read(p) for p in sorted(ITERS.glob("*.csv"))
-              if "xor" not in p.stem}
+    # Per-iteration figures cover the main single-run demos. Exclude XOR (shown
+    # separately as a num-features trend) and the multi-seed / embedding-variant
+    # runs (summarized as mean±std bar charts by aggregate_seeds.py).
+    def _skip(stem: str) -> bool:
+        return "xor" in stem or "seed" in stem or stem.startswith("adult_embedding")
+    series = {p.stem: _read(p) for p in sorted(ITERS.glob("*.csv")) if not _skip(p.stem)}
     _xor_features_figure()
     if not series:
         print("No per-iteration series found; run collect_results.py first.")
