@@ -1056,3 +1056,14 @@ uv run python scripts/build_html.py
 > 公式Tab-PE実装を理解し、再現可能な実験・評価・レポート基盤を作る
 
 ことを優先する。
+
+---
+
+# 16. 後続実験のためのガイド
+
+「独自データセット適用」を Phase 2 で行う際は、着手前に適用可否と設計方針を確認する。
+手順は次のガイドに従う。
+
+* [`docs/guides/new-dataset-checklist.md`](guides/new-dataset-checklist.md) —
+  新規データへ Tab-PE を適用するための適用可否チェックリストと標準タスクリスト
+  （privacy unit・識別子・列の意味構造・欠損/未知値・列間整合・距離統合・DP・評価）。
