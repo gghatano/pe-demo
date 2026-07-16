@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import csv
+import json
 from pathlib import Path
 
 import matplotlib
@@ -23,7 +24,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-ITERS = REPO_ROOT / "results" / "summaries" / "iterations"
+SUMMARIES = REPO_ROOT / "results" / "summaries"
+ITERS = SUMMARIES / "iterations"
 FIGURES = REPO_ROOT / "results" / "figures"
 
 # Friendly labels for known experiment-folder keys.
@@ -41,6 +43,43 @@ def _read(path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def _xor_features_figure() -> None:
+    """XOR: final synthetic-train→real-test accuracy vs number of XOR features
+    (the high-order-correlation stress). Reads results/summaries/xor_clf_*.json."""
+    rows = []
+    for p in sorted(SUMMARIES.glob("xor_clf_*.json")):
+        d = json.loads(p.read_text(encoding="utf-8"))
+        fm = d.get("final_metrics", {})
+        nf = d.get("dataset_name", "")
+        # num-features from the record's experiment_name suffix.
+        try:
+            n = int(d["experiment_name"].split("_")[3])
+        except Exception:
+            continue
+        rows.append((n, fm.get("classifier_test_acc"), fm.get("classifier_test_f1"),
+                     fm.get("classifier_test_auc"), d.get("classifier_model", "")))
+    if not rows:
+        return
+    rows.sort()
+    xs = [r[0] for r in rows]
+    fig, ax = plt.subplots(figsize=(6.5, 4.0))
+    for idx, name in ((1, "accuracy"), (2, "macro F1"), (3, "AUC")):
+        ys = [r[idx] for r in rows]
+        if any(y is not None for y in ys):
+            ax.plot(xs, ys, marker="o", ms=5, label=name)
+    clf = rows[0][4]
+    ax.set_xlabel("XOR features (correlation order)")
+    ax.set_ylabel("score (%)")
+    ax.set_xticks(xs)
+    ax.set_title(f"XOR: synthetic-train -> real-test score vs features (classifier={clf})")
+    ax.grid(True, alpha=0.3)
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(FIGURES / "xor_accuracy_vs_features.png", dpi=120)
+    print(f"wrote {FIGURES / 'xor_accuracy_vs_features.png'}")
+    plt.close(fig)
+
+
 def _f(row: dict, key: str):
     v = row.get(key, "")
     return float(v) if v not in ("", None) else None
@@ -48,7 +87,11 @@ def _f(row: dict, key: str):
 
 def main() -> int:
     FIGURES.mkdir(parents=True, exist_ok=True)
-    series = {p.stem: _read(p) for p in sorted(ITERS.glob("*.csv"))}
+    # Per-iteration figures cover the main demos; XOR is shown separately as a
+    # num-features trend (below), so exclude xor keys here to avoid clutter.
+    series = {p.stem: _read(p) for p in sorted(ITERS.glob("*.csv"))
+              if "xor" not in p.stem}
+    _xor_features_figure()
     if not series:
         print("No per-iteration series found; run collect_results.py first.")
         return 1

@@ -58,7 +58,10 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
 | scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |
 | xor_stress_test_1_features | XOR stress test (1 feature) | EXECUTED | 5.41 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_1_features_tabicl | XOR stress test (1 feature) | EXECUTED | 461.6 | tabicl | 99.8 | 99.8 | 100.0 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test_2_features | XOR stress test (2 feature) | EXECUTED | 5.67 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_2_features_tabicl | XOR stress test (2 feature) | EXECUTED | 963.38 | tabicl | 99.01 | 99.01 | 99.96 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
+| xor_stress_test_3_features_tabicl | XOR stress test (3 feature) | EXECUTED | 1001.12 | tabicl | 96.85 | 96.85 | 99.67 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test | XOR stress test (simulated) | FAILED | 7.82 | tabpfn | – | – | – | – | 1.0 | tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download |
 
 <!-- AUTO:experiments_table END -->
@@ -78,9 +81,12 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
   0.03/0.05/0.08 と小さく、低次の分布は比較的よく合っている。
 - Person Activity は多クラスで、精度 **64.04%** に対し macro F1 は **36.52** と大きく
   下がる。クラス数が多く不均衡なため、多数クラスは当てられても少数クラスの再現が弱い。
+- XOR は分類器を `tabicl` に差し替えた deviation で評価した。特徴数（相関の次数）が
+  1→3 と増えるほど精度が **99.80% → 96.85%** と下がり、高次相関ほど再現が難しくなる
+  傾向を確認した（AUC は 99.7 以上を維持）。
 - いずれも `epsilon=1.0` の DP 制約下での結果である。実データ全 4 種
   （Breast Cancer・Adult・Artificial Characters・Person Activity）と SCM 3 prior、
-  XOR 生成を実行した。
+  XOR（生成＋tabicl 分類）を実行した。
 
 ## 8. 再現性評価
 
@@ -90,8 +96,9 @@ DP を保証し、(3) スコアの高いサンプルを選択・変異 (mutation
 
 ## 9. 制約
 
-- XOR の分類器精度は `tabpfn` のライセンス取得(要 `TABPFN_TOKEN`)が必要なため
-  `NOT_RUN`。生成のみ実行。
+- XOR の公式分類器 `tabpfn` はライセンス取得(要 `TABPFN_TOKEN`)が必要なため未使用
+  (`NOT_RUN`)。分類評価は `tabicl` に差し替えた deviation で実施した(公式条件そのもの
+  ではない)。
 - 本フェーズで比較可能な公式公表値を用いていないため、`REPRODUCED` の実験はない。
 - データは第三者リポジトリの `main` から取得しており、データ側の SHA は未固定。
 - PE の生成は非決定的で、各実験 1 run のみ（run 間の揺れは未測定）。

@@ -188,11 +188,32 @@ Decision (from the user): run only the lighter demos now; defer heavier
   SCM (rff/tree/nn), and the four real datasets (Breast Cancer, Adult, Artificial
   Characters, Person Activity).
 
+## 2026-07-16: XOR classification with tabicl deviation (#21)
+
+Decision (from the user): complete the XOR classification by substituting the
+license-gated `tabpfn` with `tabicl` (a documented deviation).
+
+- `scripts/experiments/xor_with_classifier.py` — the official `xor_stress_test.py`
+  pipeline with the sole change `TabClassifier(model_name="tabpfn" → "tabicl")`.
+  Generation, populations, NN histogram, and `epsilon=1.0` Gaussian mechanism
+  unchanged.
+- Ran num-features 1/2/3 (`EXECUTED`; 462 s / 963 s / 1001 s).
+  acc/F1/AUC: 1f = **99.80% / 99.80 / 100.0**; 2f = **99.01% / 99.01 / 99.96**;
+  3f = **96.85% / 96.85 / 99.67**.
+- Observation: as XOR order (num-features) rises, synthetic-train→real-test accuracy
+  and macro F1 fall (99.80% → 96.85%) while AUC stays ≥99.67 — Tab-PE handles the
+  high-order XOR correlation, but higher order is progressively harder to reproduce.
+- Status `EXECUTED` (classifier differs from the official tabpfn), not `REPRODUCED`.
+- Figure: `results/figures/xor_accuracy_vs_features.png` (score vs num-features).
+- Records: `results/summaries/xor_clf_{1,2,3}f_tabicl.json`.
+
 ## Deferred (follow-up)
 
-- XOR classifier accuracy (needs `TABPFN_TOKEN`).
-- Comparison against official published numbers to move any experiment from
-  `EXECUTED` to `REPRODUCED`.
+- XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
+  a tabicl deviation; the verbatim-official run remains open.
+- Trace results to source logs / audit — #19.
+- Comparison against official published numbers → `REPRODUCED` — #20.
+- Seed control + multiple trials for stability (mean±std) — #22.
 
 ## Pending decisions
 
@@ -217,3 +238,8 @@ Decision (from the user): run only the lighter demos now; defer heavier
 | 2026-07-16 | SCM (nn) | `python scm.py --prior-function nn` | EXECUTED | 745 s | acc 85.48%, F1 85.46, AUC 93.80; WSD 0.143/0.182/0.217 |
 | 2026-07-16 | Adult | `python adult.py` | EXECUTED | 2865 s | acc 80.94%, F1 70.78, AUC 84.94; WSD 0.029/0.053/0.076 |
 | 2026-07-16 | Person Activity | `python person_activity.py` | EXECUTED | 4498 s | acc 64.04%, F1 36.52; WSD 0.118/0.153/0.187 |
+| 2026-07-16 | XOR 1f (tabicl※) | `xor_with_classifier.py --num-features 1` | EXECUTED | 462 s | acc 99.80%, F1 99.80, AUC 100.0 |
+| 2026-07-16 | XOR 2f (tabicl※) | `xor_with_classifier.py --num-features 2` | EXECUTED | 963 s | acc 99.01%, F1 99.01, AUC 99.96 |
+| 2026-07-16 | XOR 3f (tabicl※) | `xor_with_classifier.py --num-features 3` | EXECUTED | 1001 s | acc 96.85%, F1 96.85, AUC 99.67 |
+
+※ XOR は公式 tabpfn を tabicl に差し替えた deviation。
