@@ -34,6 +34,8 @@ PAGES = [
      "nav": "🔬 データ", "subtitle": "データセット・取得元・前処理"},
     {"md": "content/results-detail.md", "out": "results-detail.html", "key": "results",
      "nav": "📈 詳細結果", "subtitle": "実験別の指標と反復推移"},
+    {"md": "content/adult-embedding.md", "out": "adult-embedding.html", "key": "adult-embedding",
+     "nav": "🧬 Adult埋め込み", "subtitle": "埋め込み精緻化の追加実験（#24）"},
     {"md": "content/engineering-notes.md", "out": "engineering-notes.html", "key": "engineering",
      "nav": "🛠 エンジニアリング", "subtitle": "環境構築・再現手順・実装メモ"},
     {"md": "content/faq.md", "out": "faq.html", "key": "faq",

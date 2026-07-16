@@ -32,7 +32,10 @@ FIGURES = REPO_ROOT / "results" / "figures"
 
 METRICS = ["classifier_test_acc", "classifier_test_f1", "classifier_test_auc",
            "wsd_1way", "wsd_2way", "wsd_3way", "wsd_5way", "wsd_6way", "wsd_7way",
-           "runtime_seconds"]
+           "runtime_seconds",
+           # fidelity / consistency (from extra_metrics, e.g. Adult embedding #24)
+           "education_inconsistency_rate", "capital-gain_pos_ratio_abs_diff",
+           "capital-loss_pos_ratio_abs_diff"]
 
 
 def _collect(glob: str, group_field: str) -> dict[str, dict[str, list[float]]]:
@@ -43,6 +46,8 @@ def _collect(glob: str, group_field: str) -> dict[str, dict[str, list[float]]]:
         rec = json.loads(p.read_text(encoding="utf-8"))
         key = str(rec.get(group_field, "?"))
         fm = dict(rec.get("final_metrics") or {})
+        fm.update({k: v for k, v in (rec.get("extra_metrics") or {}).items()
+                   if isinstance(v, (int, float))})
         fm["runtime_seconds"] = rec.get("runtime_seconds")
         g = groups.setdefault(key, {})
         g.setdefault("_seeds", []).append(rec.get("seed"))
@@ -111,6 +116,30 @@ def main() -> int:
         fig.tight_layout()
         fig.savefig(FIGURES / f"{args.out}_stability.png", dpi=120)
         print(f"wrote {FIGURES / f'{args.out}_stability.png'}")
+        plt.close(fig)
+
+    # Optional fidelity figure (grouped bars) when fidelity metrics are present.
+    fid_metrics = [("capital-gain_pos_ratio_abs_diff", "capital-gain>0 ratio diff"),
+                   ("capital-loss_pos_ratio_abs_diff", "capital-loss>0 ratio diff"),
+                   ("education_inconsistency_rate", "education inconsistency")]
+    if any(m in agg[keys[0]] for m, _ in fid_metrics):
+        FIGURES.mkdir(parents=True, exist_ok=True)
+        fig, ax = plt.subplots(figsize=(7.5, 4.2))
+        x = np.arange(len(keys))
+        width = 0.25
+        for j, (mkey, mlabel) in enumerate(fid_metrics):
+            means = [agg[k].get(mkey, {}).get("mean", np.nan) for k in keys]
+            stds = [agg[k].get(mkey, {}).get("std", 0) for k in keys]
+            ax.bar(x + (j - 1) * width, means, width, yerr=stds, capsize=4, label=mlabel)
+        ax.set_xticks(x)
+        ax.set_xticklabels([f"{k}\n(n={agg[k]['n_runs']})" for k in keys])
+        ax.set_ylabel("distance / rate (lower is better)")
+        ax.set_title(f"{args.out}: fidelity / consistency (mean +/- std)")
+        ax.grid(True, axis="y", alpha=0.3)
+        ax.legend(fontsize=8)
+        fig.tight_layout()
+        fig.savefig(FIGURES / f"{args.out}_fidelity.png", dpi=120)
+        print(f"wrote {FIGURES / f'{args.out}_fidelity.png'}")
         plt.close(fig)
 
     print(f"aggregated {sum(a['n_runs'] for a in agg.values())} runs into {len(agg)} groups "
