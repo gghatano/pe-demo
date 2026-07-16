@@ -59,16 +59,29 @@
 - **レポート生成キットは再利用した。** HTML ビルダー・Pages ワークフロー・執筆 skill は
   `gghatano/synth-report-kit`（MIT）から取り込んだ（`ark/`、`.claude/skills/`）。
 
+## 知見の追記（#22 / #24）
+
+- **seed 制御**: tabular 生成の乱数は NumPy グローバル RNG に集約され、`np.random.seed` で
+  生成＋DP ノイズが完全決定化する（同一 seed で指標は bit 一致、runtime のみ変動）。SCM 3 prior ×
+  3 seed で `nn>tree>rff` の順位が乱数変動に対して安定（差 ≫ std）と確認した（#22）。
+- **埋め込み精緻化の効き方**: Adult で「気を利かせた埋め込み」は、狙った列（capital）の分布
+  忠実度は明確に改善する（比率差 0.76→0.50）が、下流分類 utility は有意に動かない（tabicl が
+  強力なため）。単一指標では「変わらない」に見えるが fidelity 軸では変わる、という trade-off（#24）。
+- **列間の副作用**: capital 用の数値埋め込みを変えると、選択される合成サンプルが変わり、無関係な
+  `education`/`education-num` の整合を悪化させた（0.55→0.71）。列を個別に直すと別列を壊し得る（#24）。
+
 ## 課題（未対応・追跡中）
 
 | 課題 | 対応 Issue | メモ |
 |---|---|---|
-| 乱数 seed を制御し複数試行で mean±std を出す | #22 | PE 非決定性への対応。#24 本実験の前提 |
-| Adult 埋め込みの本実験（3 variant × ≥3 seed） | #24 | 実装・テストは完了。実行は #22 待ち |
 | 公式公表値と対応付けて `REPRODUCED` 判定 | #20 | 論文・README の比較可能な数値を要調査 |
-| 公開集計値を元ログ・合成 CSV まで追跡・監査 | #19 | provenance。入力データ SHA の固定もここで扱う |
+| 公開集計値を元ログ・合成 CSV まで追跡・監査＋入力データ SHA 固定 | #19 | provenance。`cloud-data-store@main` は未固定 |
+| capital/education を両立する埋め込み（robust_semantic）で列間副作用を検証 | #32 | #24 の副作用の知見から |
+| 埋め込み改良の効果を測れる下流評価（fnlwgt 除外・弱分類器・capital 依存タスク） | #33 | 「fidelity は改善するが utility は動かない」への対応 |
+| 実データ 4 種を seed 制御で複数試行し mean±std を揃える | #34 | 現状 SCM のみ複数試行、実データは単一試行 |
 | XOR を公式 `tabpfn` で verbatim 実行 | (#21 は tabicl 代替で達成済み) | `TABPFN_TOKEN` 待ち |
-| 入力データ（cloud-data-store）の SHA/ハッシュ固定 | #19 関連 | 現状 `main` 参照で未固定。再現性の穴 |
+
+完了済み: #22（seed 制御）, #24（Adult 埋め込み本実験）。
 
 ## 非スコープ（本フェーズでは扱わない）
 
