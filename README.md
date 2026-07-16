@@ -23,5 +23,6 @@ uv sync
 - `docs/plans/experiment-plan.md` — execution order and contracts.
 - `docs/research/official-implementation.md` — upstream code investigation.
 - `docs/reproduction-log.md` — decisions and execution evidence.
+- [`docs/findings.md`](docs/findings.md) — 横断的な知見と課題（未対応 Issue のまとめ）。
 - `docs/tasks/` — task breakdown mapped to GitHub issues.
 - [`docs/guides/new-dataset-checklist.md`](docs/guides/new-dataset-checklist.md) — 新規データへ Tab-PE を適用する際の適用可否チェックリストと標準タスクリスト。
