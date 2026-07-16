@@ -1,0 +1,67 @@
+{
+  "experiment_name": "adult_embedding_robust_numeric_seed0",
+  "kind": "adult_embedding_additional",
+  "official_script_path": "example/tabular/adult.py",
+  "deviation": "embedding TabularEmbedding -> AdultEmbedding(variant=robust_numeric); generation/DP/populations/classifier/WSD unchanged.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/run_adult_embedding.py --variant robust_numeric --seed 0 --num-iterations 30",
+  "variant": "robust_numeric",
+  "embedding_config": {
+    "variant": "robust_numeric",
+    "fnlwgt_weight": 0.25,
+    "capital_presence_weight": 0.3333333333333333,
+    "capital_amount_weight": 1.0,
+    "education_weight": 1.0,
+    "education_consistency_weight": 0.3333333333333333,
+    "categorical_weight": 0.3333333333333333,
+    "numerical_weight": 1.0
+  },
+  "embedding_dim": 110,
+  "classifier_model": "tabicl",
+  "seed": 0,
+  "python_version": "3.12.13",
+  "uv_lock_commit": "2230948f3bfb81531bf28a0c8acb5a8953f55c63",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Adult (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/adult/",
+  "num_iterations": 30,
+  "num_samples": 1000,
+  "num_private_samples": 33334,
+  "started_at_utc": "2026-07-16T13:28:45.825512+00:00",
+  "runtime_seconds": 2992.46,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 81.59,
+    "classifier_test_f1": 70.45,
+    "classifier_test_auc": 85.67,
+    "wsd_1way": 0.04298889,
+    "wsd_2way": 0.0812373,
+    "wsd_3way": 0.11975368,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 2.8805876962760987e-06,
+      "noise_multiplier": 21.557976254720614,
+      "accounted_num_iterations": 29
+    }
+  },
+  "extra_metrics": {
+    "education_inconsistency_rate": 0.73725,
+    "capital-gain_pos_ratio_synth": 0.5955,
+    "capital-gain_pos_ratio_real": 0.08594624860022397,
+    "capital-gain_pos_ratio_abs_diff": 0.5095537513997761,
+    "capital-loss_pos_ratio_synth": 0.5845,
+    "capital-loss_pos_ratio_real": 0.046052631578947366,
+    "capital-loss_pos_ratio_abs_diff": 0.5384473684210527
+  },
+  "artifacts": {
+    "log_relpath": "results\\raw\\adult_embedding\\adult_embedding_robust_numeric_seed0\\log.txt",
+    "synthetic_csvs": 30,
+    "checkpoint_files": 32
+  }
+}

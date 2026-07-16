@@ -255,10 +255,33 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
   ordering was not a fluke. Report distinguishes single-trial (§実験別サマリ) from the
   3-seed mean±std section. Pages workflow now runs `aggregate_seeds.py`.
 
+## 2026-07-17: Adult embedding experiment (#24, full)
+
+- Ran the Adult-embedding comparison (`run_adult_embedding.py`, seed control from #22):
+  `official` / `robust_numeric` / `adult_semantic` × seeds `0,1,2` = 9 runs (~48 min each).
+  Aggregated with `aggregate_seeds.py` → `adult_embedding_seed_aggregate.{csv,json}` +
+  accuracy and fidelity figures.
+- `official` reproduced the earlier single-run Adult (acc 79.89 ± 0.58 vs 80.94) —
+  confirms `AdultEmbedding(official)` == `TabularEmbedding` on real data.
+- Utility (mean±std): official acc **79.89 ± 0.58**, robust **81.01 ± 1.30**,
+  semantic **77.78 ± 1.84** (semantic F1 62.58 ± 9.33 — collapses at seed 1).
+- Fidelity (lower better): capital-gain ratio diff official **0.760** → robust **0.498**
+  / semantic **0.519**; capital-loss **0.805** → **0.521 / 0.535**; education inconsistency
+  official 0.549, robust **0.711** (worse), semantic 0.502.
+- **Hypotheses**: H1 (capital split → fidelity) **supported** (0.76→0.50, gap ≫ std);
+  H2 (education penalty → consistency) **未判定/weak** (0.549→0.502, within std, and semantic
+  hurts utility); H3 (lower fnlwgt → utility) **未判定** (+1.1 pt within std).
+- **Takeaway**: a more thoughtful embedding clearly improves the targeted distributional
+  fidelity (capital) but does **not** reliably improve downstream classifier utility;
+  the aggressive semantic variant even hurts utility and is seed-sensitive. Reported as a
+  utility/fidelity/consistency trade-off, not a single-metric win. New report page
+  `content/adult-embedding.md`.
+- Minor deferral: the fnlwgt-excluded classifier (an extra lens on H3) was not implemented;
+  the required completion metrics (acc/F1/AUC/WSD/inconsistency) are covered.
+
 ## Deferred (follow-up)
 
-- Full Adult-embedding experiment (3 variants × ≥3 seeds) + report pages/figures — #24
-  (implementation done; seed control now available from #22).
+- fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done).
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.
