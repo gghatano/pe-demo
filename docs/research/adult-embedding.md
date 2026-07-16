@@ -98,6 +98,26 @@ UCI Adult で定義された学歴コード。`education` の生 one-hot と `ed
   （既定 `1/3`）、一致なら 0 の penalty 次元を追加する。
 - 元の `education` 列は出力 CSV から削除しない（変更するのは距離計算用埋め込みだけ）。
 
+### `public_fe`（公開 FE、#36）
+
+Adult の一般的な特徴量エンジニアリング（ML 文献の**固定された公開ルール**）に基づく埋め込み。
+このデータの正解 `income` も私的統計も一切使わないため、**リークにならない**。
+
+- `fnlwgt` を落とす（個人属性ではなく標本重み。予測に使わないのが定石）。
+- `age` を固定公開エッジ `[35, 50]` で 3 分割（young/middle/old）、`hours-per-week` を
+  `[30, 40, 60]` で 4 分割（part-time/standard/long/excessive）し、ビン index を順序 min-max で埋め込む。
+- `education-num` を公開 bounds の ordinal で保持（`education` one-hot は落とす）。
+- capital: `extra_income` の 3 値 one-hot `{none, positive, negative}`（符号）＋ `log1p(gain+loss)` の
+  公開 bounds 正規化（量）。生の `capital-gain`/`capital-loss` 数値は落とす。
+- `native-country` を `US`/`非US` に集約。他カテゴリ（workclass, marital-status, occupation,
+  relationship, race, sex）は one-hot。
+
+**リーク境界（重要）**: ビン境界（35/50、30/40/60）・符号化・地理グループ・fnlwgt 除去は
+すべて**公開知識で固定**しており、私的データの分位点・相関・target encoding は使わない。
+未知カテゴリは暗黙に写像せず明示エラー。行独立で最近傍 histogram の 1 レコード感度を増やさない。
+> 出典（公開 FE の一般的手法）: MachineLearningMastery, Adult census income の各解説記事、
+> UCI Adult 仕様。「このデータに特化して正解を覗く特徴量」はリークになるため採用しない。
+
 ## 追加評価（最終合成 CSV に対して）
 
 公式の TabICL 評価と分離して計算する（PE 反復中の選択には使わない）。

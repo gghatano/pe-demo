@@ -94,7 +94,8 @@ def _extra_metrics(synth_df: pd.DataFrame, real_df: pd.DataFrame) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--variant", required=True, choices=["official", "robust_numeric", "adult_semantic"])
+    parser.add_argument("--variant", required=True,
+                        choices=["official", "robust_numeric", "adult_semantic", "public_fe"])
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num-iterations", type=int, default=30)
     parser.add_argument("--num-samples", type=int, default=1000)

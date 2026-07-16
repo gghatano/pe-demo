@@ -85,7 +85,7 @@ def ref_tabular(df: pd.DataFrame, info: dict, cat_weight=1 / 3, num_weight=1.0) 
     return np.concatenate(parts, axis=1)
 
 
-@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic"])
+@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic", "public_fe"])
 def test_deterministic(variant):
     df = make_fixture()
     e = emb(variant, df)
@@ -102,7 +102,7 @@ def test_label_not_in_embedding():
     assert np.array_equal(e.compute_vectors(df), e.compute_vectors(df2))
 
 
-@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic"])
+@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic", "public_fe"])
 def test_no_nan_inf(variant):
     df = make_fixture()
     v = emb(variant, df).compute_vectors(df)
@@ -133,7 +133,7 @@ def test_education_penalty_only_on_inconsistency():
     assert set(pen[1:]) == {0.0}
 
 
-@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic"])
+@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic", "public_fe"])
 def test_unknown_category_raises(variant):
     df = make_fixture()
     df.loc[0, "occupation"] = "UNSEEN-JOB"
@@ -159,7 +159,36 @@ def test_official_matches_tabular_embedding():
     assert np.array_equal(nn_ours, nn_ref)
 
 
-@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic"])
+def test_public_fe_drops_fnlwgt():
+    # public_fe drops fnlwgt entirely: changing fnlwgt must not change the embedding.
+    df = make_fixture()
+    df2 = df.copy()
+    df2["fnlwgt"] = df2["fnlwgt"] * 3 + 1
+    e = emb("public_fe", df)
+    assert np.array_equal(e.compute_vectors(df), e.compute_vectors(df2))
+
+
+def test_public_fe_age_bins():
+    df = make_fixture(3)
+    df.loc[:, "age"] = [25, 45, 70]  # young / middle / old -> ordinal 0, 0.5, 1.0
+    e = emb("public_fe", df)
+    from pe_demo.embedding.adult import AGE_BIN_EDGES
+    got = e._ordinal_bins(df["age"].to_numpy(), AGE_BIN_EDGES, 1.0).ravel()
+    assert list(got) == [0.0, 0.5, 1.0]
+
+
+def test_public_fe_extra_income_signs():
+    e = emb("public_fe", make_fixture())
+    gain = np.array([0.0, 500.0, 0.0])
+    loss = np.array([0.0, 0.0, 300.0])
+    oh = e._extra_income_onehot(gain, loss, 1.0)
+    # rows: none / positive / negative
+    assert oh[0].tolist() == [1.0, 0.0, 0.0]
+    assert oh[1].tolist() == [0.0, 1.0, 0.0]
+    assert oh[2].tolist() == [0.0, 0.0, 1.0]
+
+
+@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic", "public_fe"])
 def test_embeds_all_rows_consistent_dim(variant):
     df = make_fixture(30)
     v = emb(variant, df).compute_vectors(df)
@@ -167,7 +196,7 @@ def test_embeds_all_rows_consistent_dim(variant):
     assert v.shape[1] == emb(variant, df).compute_vectors(df.iloc[:5]).shape[1]
 
 
-@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic"])
+@pytest.mark.parametrize("variant", ["official", "robust_numeric", "adult_semantic", "public_fe"])
 def test_row_independence_sensitivity(variant):
     """Each row's embedding depends only on that row: computing in batch equals
     stacking per-row results. This shows the change does not increase the
