@@ -1,0 +1,52 @@
+{
+  "experiment_name": "adult",
+  "official_script_path": "example/tabular/adult.py",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python adult.py",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "e6767c18bd71c58b649a8bbc6a7a81837da701c9",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Adult (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/adult/",
+  "started_at_utc": "2026-07-15T23:38:28.957879+00:00",
+  "runtime_seconds": 2864.62,
+  "returncode": 0,
+  "reproduction_status": "EXECUTED",
+  "failure_reason": null,
+  "artifacts": {
+    "experiment_folders": [
+      "adult_composite_population"
+    ],
+    "adult_composite_population": {
+      "copied_to": "results\\raw\\adult\\adult_composite_population",
+      "synthetic_csvs": 30,
+      "checkpoint_files": 32,
+      "log_txt_present": true,
+      "final_metrics": {
+        "classifier_test_acc": 80.94,
+        "classifier_test_f1": 70.78,
+        "classifier_test_auc": 84.94,
+        "wsd_1way": 0.02920342,
+        "wsd_2way": 0.05271038,
+        "wsd_3way": 0.07579519,
+        "dp": {
+          "epsilon": 1.0,
+          "delta": 2.8805876962760987e-06,
+          "noise_multiplier": 21.557976254720614,
+          "accounted_num_iterations": 29
+        }
+      }
+    }
+  },
+  "console_log": "results\\logs\\experiment_adult_console.log"
+}

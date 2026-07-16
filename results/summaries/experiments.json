@@ -1,5 +1,21 @@
 [
   {
+    "experiment": "adult",
+    "dataset": "Adult (real)",
+    "command": "python adult.py",
+    "status": "EXECUTED",
+    "runtime_s": 2864.62,
+    "classifier": "tabicl",
+    "test_acc": 80.94,
+    "test_f1": 70.78,
+    "test_auc": 84.94,
+    "wsd": "1-way=0.0292; 2-way=0.0527; 3-way=0.0758",
+    "epsilon": 1.0,
+    "delta": 2.8805876962760987e-06,
+    "notes": "",
+    "_source_json": "results\\summaries\\experiment_adult.json"
+  },
+  {
     "experiment": "artificial_characters",
     "dataset": "Artificial Characters (real)",
     "command": "python artificial_characters.py",
