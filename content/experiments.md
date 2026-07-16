@@ -26,8 +26,8 @@ lookahead_degree=0, backend="torch")`、composite population
 3. SCM: `--prior-function rff`。
 4. Artificial Characters。
 
-SCM は `rff`・`tree`・`nn` の 3 prior、実データは Breast Cancer・Artificial Characters・
-Adult を実行済み。`person_activity` は実行中。
+SCM は `rff`・`tree`・`nn` の 3 prior、実データは Breast Cancer・Adult・
+Artificial Characters・Person Activity をすべて実行済み。XOR は生成のみ（分類器 `NOT_RUN`）。
 
 ## 再実行可能なコマンド
 
@@ -53,6 +53,7 @@ uv run python scripts/experiments/xor_no_classifier.py --num-features 1
 | adult | Adult (real) | EXECUTED | 2864.62 | tabicl | 80.94 | 70.78 | 84.94 | 1-way=0.0292; 2-way=0.0527; 3-way=0.0758 | 1.0 | – |
 | artificial_characters | Artificial Characters (real) | EXECUTED | 224.23 | tabicl | 51.6 | 50.92 | – | 5-way=0.1519; 6-way=0.1862; 7-way=0.2175 | 1.0 | – |
 | breast_cancer | Breast Cancer (real) | EXECUTED | 230.53 | tabicl | 91.86 | 91.44 | 98.73 | 1-way=0.1644; 2-way=0.2767; 3-way=0.3749 | 1.0 | – |
+| person_activity | Person Activity (real) | EXECUTED | 4497.71 | tabicl | 64.04 | 36.52 | – | 5-way=0.1175; 6-way=0.1526; 7-way=0.1868 | 1.0 | – |
 | scm_nn | SCM (simulated) | EXECUTED | 745.5 | tabicl | 85.48 | 85.46 | 93.8 | 5-way=0.1432; 6-way=0.1817; 7-way=0.2174 | 1.0 | – |
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
 | scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |

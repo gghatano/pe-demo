@@ -12,6 +12,7 @@
 | adult | Adult (real) | EXECUTED | 2864.62 | tabicl | 80.94 | 70.78 | 84.94 | 1-way=0.0292; 2-way=0.0527; 3-way=0.0758 | 1.0 | – |
 | artificial_characters | Artificial Characters (real) | EXECUTED | 224.23 | tabicl | 51.6 | 50.92 | – | 5-way=0.1519; 6-way=0.1862; 7-way=0.2175 | 1.0 | – |
 | breast_cancer | Breast Cancer (real) | EXECUTED | 230.53 | tabicl | 91.86 | 91.44 | 98.73 | 1-way=0.1644; 2-way=0.2767; 3-way=0.3749 | 1.0 | – |
+| person_activity | Person Activity (real) | EXECUTED | 4497.71 | tabicl | 64.04 | 36.52 | – | 5-way=0.1175; 6-way=0.1526; 7-way=0.1868 | 1.0 | – |
 | scm_nn | SCM (simulated) | EXECUTED | 745.5 | tabicl | 85.48 | 85.46 | 93.8 | 5-way=0.1432; 6-way=0.1817; 7-way=0.2174 | 1.0 | – |
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
 | scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |
@@ -53,6 +54,7 @@ Artificial Characters は高次 marginal を要する設定で、それぞれ約
 | SCM (nn) | 85.48 | 85.46 | 93.80 | — | 0.1432 / 0.1817 / 0.2174 |
 | Adult | 80.94 | 70.78 | 84.94 | 0.0292 / 0.0527 / 0.0758 | — |
 | SCM (tree) | 66.68 | 66.66 | 72.61 | — | 0.1424 / 0.1828 / 0.2210 |
+| Person Activity | 64.04 | 36.52 | —(多クラス) | — | 0.1175 / 0.1526 / 0.1868 |
 | SCM (rff) | 61.08 | 61.03 | 64.14 | — | 0.1460 / 0.1860 / 0.2243 |
 | Artificial Characters | 51.60 | 50.92 | —(多クラス) | — | 0.1519 / 0.1862 / 0.2175 |
 | XOR (1/2 feature) | NOT_RUN | — | — | — | —(WSD なし) |
@@ -68,6 +70,7 @@ SCM は 3 つの prior function（`nn`・`tree`・`rff`）で生成過程が異�
 |---|---|---|---|---|
 | Breast Cancer | 1.0 | 4.1971e-4 | 12.266 | 19 |
 | Adult | 1.0 | 2.8806e-6 | 21.558 | 29 |
+| Person Activity | 1.0 | 7.4341e-7 | 16.034 | 14 |
 | SCM (rff/tree/nn) | 1.0 | 2.7307e-6 | 15.021 | 14 |
 | Artificial Characters | 1.0 | 1.5754e-5 | 13.573 | 14 |
 | XOR (1 feature) | 1.0 | 2.7307e-6 | 17.499 | 19 |

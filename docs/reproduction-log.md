@@ -174,9 +174,22 @@ Decision (from the user): run only the lighter demos now; defer heavier
   (1/2/3-way) marginal distances are small (≤0.08), i.e. low-order distributions
   match reasonably well. `EXECUTED`, not `REPRODUCED`.
 
+## 2026-07-16: Person Activity (#16)
+
+- Ran the unmodified official `person_activity.py` (heaviest: 5000 samples/iteration).
+  `EXECUTED`, 4498 s (~75 min).
+- Final metrics — acc **64.04%**, macro F1 **36.52** (multiclass, no AUC); 5/6/7-way
+  WSD 0.1175/0.1526/0.1868. DP `epsilon=1.0, delta=7.43e-7, noise_multiplier=16.03,
+  accounted num_iterations=14`. 15 synthetic CSVs, 17 checkpoints.
+- Observation: acc (64.04%) far exceeds macro F1 (36.52). Many imbalanced classes —
+  majority classes are predicted but minority classes reproduce poorly. `EXECUTED`,
+  not `REPRODUCED`.
+- With this, all official tabular demos in scope have been run: XOR (generation),
+  SCM (rff/tree/nn), and the four real datasets (Breast Cancer, Adult, Artificial
+  Characters, Person Activity).
+
 ## Deferred (follow-up)
 
-- `person_activity.py` (5000 samples) — #16.
 - XOR classifier accuracy (needs `TABPFN_TOKEN`).
 - Comparison against official published numbers to move any experiment from
   `EXECUTED` to `REPRODUCED`.
@@ -203,3 +216,4 @@ Decision (from the user): run only the lighter demos now; defer heavier
 | 2026-07-16 | SCM (tree) | `python scm.py --prior-function tree` | EXECUTED | 742 s | acc 66.68%, F1 66.66, AUC 72.61; WSD 0.142/0.183/0.221 |
 | 2026-07-16 | SCM (nn) | `python scm.py --prior-function nn` | EXECUTED | 745 s | acc 85.48%, F1 85.46, AUC 93.80; WSD 0.143/0.182/0.217 |
 | 2026-07-16 | Adult | `python adult.py` | EXECUTED | 2865 s | acc 80.94%, F1 70.78, AUC 84.94; WSD 0.029/0.053/0.076 |
+| 2026-07-16 | Person Activity | `python person_activity.py` | EXECUTED | 4498 s | acc 64.04%, F1 36.52; WSD 0.118/0.153/0.187 |
