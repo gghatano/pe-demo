@@ -207,8 +207,35 @@ license-gated `tabpfn` with `tabicl` (a documented deviation).
 - Figure: `results/figures/xor_accuracy_vs_features.png` (score vs num-features).
 - Records: `results/summaries/xor_clf_{1,2,3}f_tabicl.json`.
 
+## 2026-07-16: AdultEmbedding implementation (#24, implementation-first)
+
+Decision (from the user): implement #24's code first; defer the full 3-variant ×
+3-seed experiment until #22 (seed control) lands.
+
+- `pe_demo/embedding/adult.py` — `AdultEmbedding(Embedding)` + `AdultEmbeddingConfig`
+  with 3 variants (`official` / `robust_numeric` / `adult_semantic`). Non-official
+  numeric transforms use fixed **public** Adult domain bounds (never learned from the
+  private data); unknown categories raise instead of silently mapping to index 0; the
+  embedding is row-independent (no added 1-record sensitivity). Design + public
+  constants (bounds, education→num table with source) in `docs/research/adult-embedding.md`.
+- `scripts/experiments/run_adult_embedding.py` — Adult PE with a swappable embedding,
+  seed control, and `--num-iterations` (default 30 = official; small for smoke). Records
+  full config/seed/provenance + additional evals (education inconsistency rate, capital
+  presence ratio diff). Writes `adult_embedding_*` (additional experiment, not a
+  replacement for the official `adult` result).
+- `tests/test_adult_embedding.py` — 20 tests (determinism, label excluded, no NaN/Inf,
+  capital zero → 0, log monotonic, education penalty, unknown-category raises, official
+  == TabularEmbedding, dim consistency, row-independence). `uv run pytest` → 20 passed.
+- Wiring verified by a single-seed 2-iteration smoke (`robust_numeric`, dim=110,
+  end-to-end OK). The 2-iteration smoke numbers are not results and were not kept.
+
+**Deferred to #22 / rest of #24**: full runs (3 variants × ≥3 seeds × 30 iterations),
+`content/adult-embedding.md`, and the utility/fidelity/consistency figures.
+
 ## Deferred (follow-up)
 
+- Full Adult-embedding experiment (3 variants × ≥3 seeds) + report pages/figures — #24
+  (implementation done; runs pending #22).
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.
