@@ -1,0 +1,51 @@
+{
+  "experiment_name": "person_activity",
+  "official_script_path": "example/tabular/person_activity.py",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "official_commit_sha_observed": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python person_activity.py",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_version": "uv 0.11.26 (396ef7ce4 2026-06-30 x86_64-pc-windows-msvc)",
+  "uv_lock_commit": "38a9ce3163cdd8f5440dfbc52b287fc03aa535bd",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic; WSD sampling uses seed=42)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Person Activity (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/person-activity/",
+  "started_at_utc": "2026-07-16T00:28:19.173954+00:00",
+  "runtime_seconds": 4497.71,
+  "returncode": 0,
+  "reproduction_status": "EXECUTED",
+  "failure_reason": null,
+  "artifacts": {
+    "experiment_folders": [
+      "person-activity_composite_population"
+    ],
+    "person-activity_composite_population": {
+      "copied_to": "results\\raw\\person_activity\\person-activity_composite_population",
+      "synthetic_csvs": 15,
+      "checkpoint_files": 17,
+      "log_txt_present": true,
+      "final_metrics": {
+        "classifier_test_acc": 64.04,
+        "classifier_test_f1": 36.52,
+        "wsd_5way": 0.11750663,
+        "wsd_6way": 0.15260217,
+        "wsd_7way": 0.18684502,
+        "dp": {
+          "epsilon": 1.0,
+          "delta": 7.434136520415307e-07,
+          "noise_multiplier": 16.033739078266457,
+          "accounted_num_iterations": 14
+        }
+      }
+    }
+  },
+  "console_log": "results\\logs\\experiment_person_activity_console.log"
+}

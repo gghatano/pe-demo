@@ -48,6 +48,22 @@
     "_source_json": "results\\summaries\\smoke_breast_cancer.json"
   },
   {
+    "experiment": "person_activity",
+    "dataset": "Person Activity (real)",
+    "command": "python person_activity.py",
+    "status": "EXECUTED",
+    "runtime_s": 4497.71,
+    "classifier": "tabicl",
+    "test_acc": 64.04,
+    "test_f1": 36.52,
+    "test_auc": "",
+    "wsd": "5-way=0.1175; 6-way=0.1526; 7-way=0.1868",
+    "epsilon": 1.0,
+    "delta": 7.434136520415307e-07,
+    "notes": "",
+    "_source_json": "results\\summaries\\experiment_person_activity.json"
+  },
+  {
     "experiment": "scm_nn",
     "dataset": "SCM (simulated)",
     "command": "python scm.py --prior-function nn",
