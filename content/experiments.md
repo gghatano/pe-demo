@@ -58,11 +58,15 @@ uv run python scripts/experiments/xor_no_classifier.py --num-features 1
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
 | scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |
 | xor_stress_test_1_features | XOR stress test (1 feature) | EXECUTED | 5.41 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_1_features_tabicl | XOR stress test (1 feature) | EXECUTED | 461.6 | tabicl | 99.8 | 99.8 | 100.0 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test_2_features | XOR stress test (2 feature) | EXECUTED | 5.67 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_2_features_tabicl | XOR stress test (2 feature) | EXECUTED | 963.38 | tabicl | 99.01 | 99.01 | 99.96 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
+| xor_stress_test_3_features_tabicl | XOR stress test (3 feature) | EXECUTED | 1001.12 | tabicl | 96.85 | 96.85 | 99.67 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test | XOR stress test (simulated) | FAILED | 7.82 | tabpfn | – | – | – | – | 1.0 | tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download |
 
 <!-- AUTO:experiments_table END -->
 
-- **XOR (`tabpfn`)**: `FAILED`（`TabPFNLicenseError`。要 `TABPFN_TOKEN`）。
-  生成のみの deviation 実行は `EXECUTED`、分類器精度は `NOT_RUN`。
+- **XOR (`tabpfn`)**: `FAILED`（`TabPFNLicenseError`。要 `TABPFN_TOKEN`）。公式 tabpfn は `NOT_RUN`。
+  生成のみの deviation は `EXECUTED`。分類評価は `tabicl` に差し替えた deviation で
+  num-features 1〜3 を `EXECUTED`（詳細は [📈 詳細結果](results-detail.html) 図 3）。
 - 数値はすべて `results/summaries/experiments.csv` から生成している。

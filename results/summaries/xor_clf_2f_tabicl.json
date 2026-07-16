@@ -1,0 +1,42 @@
+{
+  "experiment_name": "xor_stress_test_2_features_tabicl",
+  "official_script_path": "example/tabular/xor_stress_test.py --num-features 2",
+  "deviation": "classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/xor_with_classifier.py --num-features 2 --classifier tabicl",
+  "classifier_model": "tabicl",
+  "python_version": "3.12.13",
+  "uv_lock_commit": "ee6adee2ac4a4f4c828d718f2fdfe27bee60ebe7",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "random_seed": "not seeded (PE generation is non-deterministic)",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "XOR stress test (2 feature)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/sim/xor-stress-test/2_feature_xor/",
+  "num_iterations": 20,
+  "num_samples": 1000,
+  "num_private_samples": 35000,
+  "started_at_utc": "2026-07-16T04:16:52.235641+00:00",
+  "runtime_seconds": 963.38,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 99.01,
+    "classifier_test_f1": 99.01,
+    "classifier_test_auc": 99.96,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 2.730683970301006e-06,
+      "noise_multiplier": 17.49931555315762,
+      "accounted_num_iterations": 19
+    }
+  },
+  "artifacts": {
+    "log_relpath": "results\\raw\\xor_clf\\xor_stress_test_2_features_tabicl\\log.txt",
+    "synthetic_csvs": 20,
+    "checkpoint_files": 22
+  }
+}

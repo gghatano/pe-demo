@@ -52,7 +52,9 @@ COLUMNS = [
 
 
 def _find_final_metrics(record: dict) -> dict:
-    """Locate a ``final_metrics`` dict nested anywhere in a record's artifacts."""
+    """Locate a ``final_metrics`` dict, either at the top level or nested in artifacts."""
+    if isinstance(record.get("final_metrics"), dict):
+        return record["final_metrics"]
     arts = record.get("artifacts", {})
     if isinstance(arts, dict):
         for v in arts.values():

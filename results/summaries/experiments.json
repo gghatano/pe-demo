@@ -128,6 +128,22 @@
     "_source_json": "results\\summaries\\xor_xor_stress_test_1_features.json"
   },
   {
+    "experiment": "xor_stress_test_1_features_tabicl",
+    "dataset": "XOR stress test (1 feature)",
+    "command": "python scripts/experiments/xor_with_classifier.py --num-features 1 --classifier tabicl",
+    "status": "EXECUTED",
+    "runtime_s": 461.6,
+    "classifier": "tabicl",
+    "test_acc": 99.8,
+    "test_f1": 99.8,
+    "test_auc": 100.0,
+    "wsd": "",
+    "epsilon": 1.0,
+    "delta": 2.730683970301006e-06,
+    "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
+    "_source_json": "results\\summaries\\xor_clf_1f_tabicl.json"
+  },
+  {
     "experiment": "xor_stress_test_2_features",
     "dataset": "XOR stress test (2 feature)",
     "command": "python scripts/experiments/xor_no_classifier.py --num-features 2",
@@ -142,6 +158,38 @@
     "delta": "1/n/ln(n)",
     "notes": "classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) | deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged.",
     "_source_json": "results\\summaries\\xor_xor_stress_test_2_features.json"
+  },
+  {
+    "experiment": "xor_stress_test_2_features_tabicl",
+    "dataset": "XOR stress test (2 feature)",
+    "command": "python scripts/experiments/xor_with_classifier.py --num-features 2 --classifier tabicl",
+    "status": "EXECUTED",
+    "runtime_s": 963.38,
+    "classifier": "tabicl",
+    "test_acc": 99.01,
+    "test_f1": 99.01,
+    "test_auc": 99.96,
+    "wsd": "",
+    "epsilon": 1.0,
+    "delta": 2.730683970301006e-06,
+    "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
+    "_source_json": "results\\summaries\\xor_clf_2f_tabicl.json"
+  },
+  {
+    "experiment": "xor_stress_test_3_features_tabicl",
+    "dataset": "XOR stress test (3 feature)",
+    "command": "python scripts/experiments/xor_with_classifier.py --num-features 3 --classifier tabicl",
+    "status": "EXECUTED",
+    "runtime_s": 1001.12,
+    "classifier": "tabicl",
+    "test_acc": 96.85,
+    "test_f1": 96.85,
+    "test_auc": 99.67,
+    "wsd": "",
+    "epsilon": 1.0,
+    "delta": 2.730683970301006e-06,
+    "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
+    "_source_json": "results\\summaries\\xor_clf_3f_tabicl.json"
   },
   {
     "experiment": "xor_stress_test",

@@ -17,7 +17,10 @@
 | scm_rff | SCM (simulated) | EXECUTED | 739.31 | tabicl | 61.08 | 61.03 | 64.14 | 5-way=0.1460; 6-way=0.1860; 7-way=0.2243 | 1.0 | – |
 | scm_tree | SCM (simulated) | EXECUTED | 742.1 | tabicl | 66.68 | 66.66 | 72.61 | 5-way=0.1424; 6-way=0.1828; 7-way=0.2210 | 1.0 | – |
 | xor_stress_test_1_features | XOR stress test (1 feature) | EXECUTED | 5.41 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_1_features_tabicl | XOR stress test (1 feature) | EXECUTED | 461.6 | tabicl | 99.8 | 99.8 | 100.0 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test_2_features | XOR stress test (2 feature) | EXECUTED | 5.67 | – | – | – | – | – | 1.0 | classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) \| deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged. |
+| xor_stress_test_2_features_tabicl | XOR stress test (2 feature) | EXECUTED | 963.38 | tabicl | 99.01 | 99.01 | 99.96 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
+| xor_stress_test_3_features_tabicl | XOR stress test (3 feature) | EXECUTED | 1001.12 | tabicl | 96.85 | 96.85 | 99.67 | – | 1.0 | deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged. |
 | xor_stress_test | XOR stress test (simulated) | FAILED | 7.82 | tabpfn | – | – | – | – | 1.0 | tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download |
 
 <!-- AUTO:experiments_table END -->
@@ -46,6 +49,24 @@ Artificial Characters は高次 marginal を要する設定で、それぞれ約
 
 *図 2: PE 反復ごとの k-way Wasserstein marginal 距離（実験別サブプロット、各 1 run）。*
 
+## XOR: 高次相関ストレス（tabicl 代替）
+
+公式 XOR デモは分類器に `tabpfn` を固定するが、これはライセンス取得（`TABPFN_TOKEN`）が
+必要で本環境では動かせない。そこで **分類器のみ `tabicl` に差し替えた documented deviation**
+（生成・DP・population は公式のまま）で、XOR の分類評価を num-features 1〜3 で実施した。
+
+図 3 に、XOR の特徴数（相関の次数）に対する synthetic-train→real-test スコアを示す。
+特徴数が増える（高次の XOR 相関になる）ほど accuracy と macro F1 が下がった
+（1→3 で 99.80% → 96.85%）。AUC は 100.0 → 99.67 と高止まりで、順位付けは保てている。
+Tab-PE が高次相関を扱えているが、次数が上がると再現がわずかに難しくなる傾向が見える。
+
+![XOR 特徴数に対する分類スコア](results/figures/xor_accuracy_vs_features.png)
+
+*図 3: XOR 特徴数（相関の次数）に対する分類スコア（分類器=tabicl、公式は tabpfn。各 1 run）。*
+
+> これは公式 `tabpfn` からの deviation のため `EXECUTED` 扱いで、公式条件そのものの
+> `REPRODUCED` とはしない。生成のみ（分類器なし）の run は [🧪 実験](experiments.html) 参照。
+
 ## 最終反復の指標
 
 | 実験 | test acc (%) | macro F1 | AUC | 1/2/3-way WSD | 5/6/7-way WSD |
@@ -57,7 +78,11 @@ Artificial Characters は高次 marginal を要する設定で、それぞれ約
 | Person Activity | 64.04 | 36.52 | —(多クラス) | — | 0.1175 / 0.1526 / 0.1868 |
 | SCM (rff) | 61.08 | 61.03 | 64.14 | — | 0.1460 / 0.1860 / 0.2243 |
 | Artificial Characters | 51.60 | 50.92 | —(多クラス) | — | 0.1519 / 0.1862 / 0.2175 |
-| XOR (1/2 feature) | NOT_RUN | — | — | — | —(WSD なし) |
+| XOR (1 feature, tabicl※) | 99.80 | 99.80 | 100.00 | — | —(WSD なし) |
+| XOR (2 features, tabicl※) | 99.01 | 99.01 | 99.96 | — | — |
+| XOR (3 features, tabicl※) | 96.85 | 96.85 | 99.67 | — | — |
+
+※ XOR は公式 `tabpfn` を `tabicl` に差し替えた deviation。公式 tabpfn は `NOT_RUN`。
 
 SCM は 3 つの prior function（`nn`・`tree`・`rff`）で生成過程が異なる。同じ Tab-PE 設定・
 同じ `epsilon=1.0` でも、synthetic-train→real-test 精度は `nn`(85.48%) > `tree`(66.68%)
