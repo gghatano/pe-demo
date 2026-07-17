@@ -19,6 +19,16 @@ official,runtime_seconds,3,2903.1933,21.2186,2879.62,2931.06
 official,education_inconsistency_rate,3,0.5493,0.044,0.4943,0.602
 official,capital-gain_pos_ratio_abs_diff,3,0.7597,0.0118,0.7433,0.7708
 official,capital-loss_pos_ratio_abs_diff,3,0.8046,0.0116,0.7922,0.8202
+public_fe,classifier_test_acc,3,78.6067,0.811,77.72,79.68
+public_fe,classifier_test_f1,3,63.2833,7.682,54.44,73.17
+public_fe,classifier_test_auc,3,80.1967,4.2647,74.51,84.78
+public_fe,wsd_1way,3,0.084,0.0159,0.0617,0.0977
+public_fe,wsd_2way,3,0.1579,0.0297,0.1164,0.1838
+public_fe,wsd_3way,3,0.2286,0.0421,0.1696,0.2658
+public_fe,runtime_seconds,3,3105.9967,46.5772,3042.41,3152.68
+public_fe,education_inconsistency_rate,3,0.9423,0.0126,0.9297,0.9595
+public_fe,capital-gain_pos_ratio_abs_diff,3,0.5235,0.0069,0.5143,0.5311
+public_fe,capital-loss_pos_ratio_abs_diff,3,0.5723,0.0087,0.5637,0.5842
 robust_numeric,classifier_test_acc,3,81.0133,1.3025,79.21,82.24
 robust_numeric,classifier_test_f1,3,71.1867,0.5361,70.45,71.71
 robust_numeric,classifier_test_auc,3,84.6067,1.3377,82.72,85.67

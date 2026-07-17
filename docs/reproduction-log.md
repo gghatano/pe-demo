@@ -279,9 +279,31 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
 - Minor deferral: the fnlwgt-excluded classifier (an extra lens on H3) was not implemented;
   the required completion metrics (acc/F1/AUC/WSD/inconsistency) are covered.
 
+## 2026-07-17: public_fe embedding (#36)
+
+- Measured the Adult downstream ceiling on the same test set: majority baseline
+  75.77%; real-1000→real-test (tabicl) **acc 84.01 / macroF1 77.77 / AUC 90.42**;
+  real-FULL→real-test (xgboost) **acc 86.44 / macroF1 80.48 / AUC 92.65**. Our DP
+  synthetic (~80 / ~70) is ~4 acc and ~7 macroF1 points below the same-size ceiling.
+- Added `public_fe` variant: generic **public** feature engineering (drop fnlwgt;
+  age/hours ordinal-binned with fixed public edges; capital → extra_income
+  {none/positive/negative} + public log-magnitude; native-country → US/non-US;
+  education-num ordinal, education one-hot dropped). No private target/statistics —
+  documented leak boundary. Ran 3 seeds.
+- Result (counterintuitive): `public_fe` **underperforms** official on utility
+  (acc 78.61 ± 0.81, macroF1 63.28 ± 7.72) and wrecks education consistency
+  (0.549 → **0.939**), though it fixes capital fidelity (0.52 like robust).
+- **Lesson**: feature engineering that helps a *classifier* (binning, grouping,
+  dropping columns) is counterproductive for the Tab-PE *embedding/distance* — it
+  removes signal the nearest-neighbor selection needs. Dropping a column from the
+  embedding also breaks that column's joint consistency (education 0.94). Of the 4
+  variants, `robust_numeric` (fix capital scale only, drop nothing) was best.
+- Upper-bound rows added to `content/adult-embedding.md`; conclusion is a
+  utility/fidelity/consistency trade-off, no strong claim.
+
 ## Deferred (follow-up)
 
-- fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done).
+- fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.
