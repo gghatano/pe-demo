@@ -30,14 +30,15 @@ from pe.logging import setup_logging
 from pe.runner import PE
 from pe.population import PEPopulation, CompositePopulation
 from pe.api import TabularAPI
-from pe.embedding import TabularEmbedding
 from pe.histogram import NearestNeighbors
 from pe.callback import SaveCheckpoints, SaveTabToCSV, TabClassifier, ComputeWSD
 from pe.logger import CSVPrint, LogPrint
 from pe.constant.data import VARIATION_API_FOLD_ID_COLUMN_NAME
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from pe_demo.embedding.adult import AdultEmbedding, AdultEmbeddingConfig  # noqa: E402
 from run_smoke import parse_final_metrics  # noqa: E402
 
 pd.options.mode.copy_on_write = True
@@ -64,6 +65,8 @@ def _eps_tag(eps: float) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--epsilon", type=float, required=True, help="DP budget; use 'inf' for no noise")
+    parser.add_argument("--variant", default="official",
+                        choices=["official", "robust_numeric", "adult_semantic", "public_fe"])
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--num-iterations", type=int, default=30)
     parser.add_argument("--num-samples", type=int, default=1000)
@@ -79,7 +82,9 @@ def main() -> int:
 
     eps = args.epsilon
     tag = _eps_tag(eps)
-    exp_name = f"adult_eps{tag}_seed{args.seed}"
+    # Keep the official-embedding names unchanged (#38); tag other variants.
+    vpart = "" if args.variant == "official" else f"_{args.variant}"
+    exp_name = f"adult_eps{tag}{vpart}_seed{args.seed}"
     exp_folder = REPO_ROOT / "results" / "raw" / "adult_eps" / exp_name
     exp_folder.mkdir(parents=True, exist_ok=True)
     setup_logging(log_file=str(exp_folder / "log.txt"))
@@ -93,7 +98,7 @@ def main() -> int:
     num_iterations = args.num_iterations
     api = TabularAPI(info=priv_info, mutation_rate_init=0.5, mutation_rate_final=0.01,
                      decay_type="polynomial", gamma=0.2, num_iterations=num_iterations)
-    embedding = TabularEmbedding(info=priv_info)
+    embedding = AdultEmbedding(info=priv_info, config=AdultEmbeddingConfig(variant=args.variant))
     histogram = NearestNeighbors(embedding=embedding, mode="L2", lookahead_degree=0, backend="torch")
     population1 = PEPopulation(api=api, initial_variation_api_fold=0, next_variation_api_fold=1,
                                keep_selected=False, selection_mode="sample", histogram_threshold=0)
@@ -128,10 +133,12 @@ def main() -> int:
         "experiment_name": exp_name,
         "kind": "adult_epsilon_sweep",
         "official_script_path": "example/tabular/adult.py",
-        "deviation": "seeded; epsilon varied (official demo uses epsilon=1). algorithm unchanged.",
+        "deviation": f"seeded; epsilon varied (official demo uses epsilon=1); embedding={args.variant}. "
+                     "algorithm unchanged.",
         "official_commit_sha": DPSDA_SHA,
         "command": f"python scripts/experiments/run_adult_epsilon.py --epsilon {eps} --seed {args.seed}",
         "epsilon": ("inf" if np.isinf(eps) else eps),
+        "variant": args.variant,
         "classifier_model": "tabicl",
         "seed": args.seed,
         "python_version": platform.python_version(),

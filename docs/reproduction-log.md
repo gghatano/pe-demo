@@ -319,10 +319,30 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
   `content/adult-embedding.md`. Single-seed caveat noted (ε=8 vs ∞ non-monotonicity is
   seed noise). Does not overwrite the official `adult` (ε=1) result.
 
+## 2026-07-18: robust_numeric epsilon sweep — noise did NOT hide the embedding (#40)
+
+- Ran `robust_numeric` at ε ∈ {0.5,1,2,4,8,∞} × seed 0 (via `run_adult_epsilon.py`,
+  now `--variant`-aware) to test whether DP noise had masked an embedding benefit.
+- Result is the opposite of that hypothesis. official vs robust acc: 0.5 → 79.98/81.49
+  (+1.5), 1.0 → 80.67/81.59 (+0.9), 2.0 → 81.27/78.36 (−2.9), 4.0 → 81.84/78.21 (−3.6),
+  8.0 → 82.61/79.34 (−3.3), ∞ → **82.47/77.63 (−4.84)**. robust's curve is non-monotonic
+  with volatile macro F1 (single-seed caveat), but the ε=∞ gap is clear.
+- **Conclusion**: DP noise did not hide an embedding advantage. At ε=∞ (no noise)
+  official clearly beats robust; robust's slight ε=1 edge (#24) was a low-ε artifact
+  (noise masking the embedding's coarser geometry). Higher ε → sharper NN selection →
+  robust's engineered distance selects worse. Reinforces "embedding is not a utility lever".
+- Review fix folded in: `parse_final_metrics` now stores `dp.epsilon = "inf"` (string)
+  instead of `float('inf')` (which json.dumps serialized as the invalid token `Infinity`);
+  sanitized the two tracked `adult_eps*inf*` records — all summary JSONs are now strict-valid.
+- Figure `adult_epsilon_sweep.png` now overlays official vs robust accuracy; report/caption
+  updated. Does not overwrite the official `adult` result.
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.
-- Multi-seed epsilon sweep (single seed done) — extends #38 if the trend warrants.
+- Multi-seed epsilon sweep (single seed done) — extends #38/#40 if the trend warrants.
+- Review-derived backlog: pipeline tests #45, ceiling provenance #42, seed-control
+  consistency #43, POSIX provenance paths #44.
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.

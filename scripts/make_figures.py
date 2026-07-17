@@ -44,41 +44,55 @@ def _read(path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def _eps_xpos(evals: list[float]):
+    """Map epsilon values to x positions (finite on log2, inf just to the right)."""
+    finite = sorted(e for e in evals if not np.isinf(e))
+    pos, lab = {}, {}
+    for e in sorted(evals):
+        if np.isinf(e):
+            pos[e] = (np.log2(finite[-1]) + 1) if finite else 1.0
+            lab[e] = "inf"
+        else:
+            pos[e] = np.log2(e)
+            lab[e] = str(e).rstrip("0").rstrip(".")
+    return pos, lab
+
+
 def _epsilon_sweep_figure() -> None:
-    """Adult utility vs DP budget epsilon (issue #38). Reads adult_eps*_seed*.json.
-    Draws acc/macroF1/AUC over epsilon with the real-data ceiling as reference lines."""
+    """Adult utility vs DP budget epsilon (issues #38, #40). Reads adult_eps*_seed*.json.
+    One accuracy curve per embedding variant, plus the measured real-data ceiling."""
     import json as _json
-    pts = []
+    by_variant: dict[str, list[tuple]] = {}
     for p in sorted(SUMMARIES.glob("adult_eps*_seed*.json")):
         d = _json.loads(p.read_text(encoding="utf-8"))
         fm = d.get("final_metrics", {})
         e = d.get("epsilon")
         ev = float("inf") if e == "inf" else float(e)
-        pts.append((ev, fm.get("classifier_test_acc"), fm.get("classifier_test_f1"),
-                    fm.get("classifier_test_auc")))
-    if not pts:
+        variant = d.get("variant", "official")
+        by_variant.setdefault(variant, []).append(
+            (ev, fm.get("classifier_test_acc"), fm.get("classifier_test_f1"),
+             fm.get("classifier_test_auc")))
+    if not by_variant:
         return
-    pts.sort(key=lambda r: r[0])
-    # x positions: finite eps on log2 axis, inf as the next tick to the right.
-    finite = [r for r in pts if not np.isinf(r[0])]
-    xs, labels = [], []
-    for r in pts:
-        if np.isinf(r[0]):
-            xpos = (np.log2(finite[-1][0]) + 1) if finite else 1
-            labels.append("inf")
+    all_eps = [r[0] for rows in by_variant.values() for r in rows]
+    pos, lab = _eps_xpos(all_eps)
+    xticks = sorted(set(pos.values()))
+    xlabels = [lab[e] for e in sorted(set(all_eps))]
+
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    multi = len(by_variant) > 1
+    for variant, rows in sorted(by_variant.items()):
+        rows.sort(key=lambda r: r[0])
+        xs = [pos[r[0]] for r in rows]
+        if multi:
+            ax.plot(xs, [r[1] for r in rows], marker="o", ms=5, label=f"{variant} acc")
         else:
-            xpos = np.log2(r[0])
-            labels.append(str(r[0]).rstrip("0").rstrip("."))
-        xs.append(xpos)
-    fig, ax = plt.subplots(figsize=(7.0, 4.2))
-    for idx, name in ((1, "accuracy"), (2, "macro F1"), (3, "AUC")):
-        ys = [r[idx] for r in pts]
-        ax.plot(xs, ys, marker="o", ms=5, label=name)
-    # reference lines: same-size real-data ceiling + majority baseline (measured).
+            for idx, name in ((1, "accuracy"), (2, "macro F1"), (3, "AUC")):
+                ax.plot(xs, [r[idx] for r in rows], marker="o", ms=5, label=name)
     ax.axhline(84.01, ls="--", lw=1, color="gray", label="real-1000 acc (ceiling)")
     ax.axhline(75.77, ls=":", lw=1, color="gray", label="majority baseline")
-    ax.set_xticks(xs)
-    ax.set_xticklabels(labels)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xlabels)
     ax.set_xlabel("epsilon (DP budget; higher = less privacy)")
     ax.set_ylabel("score (%)")
     ax.set_title("Adult: utility vs DP budget epsilon (single seed)")
