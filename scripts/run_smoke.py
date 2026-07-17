@@ -106,7 +106,8 @@ def parse_final_metrics(log_txt: Path) -> dict[str, object]:
         v = _last(rf"{deg}way-wsd_\d+samples_\d+seed[^\n]*:\s*([\d.]+)")
         if v:
             out[f"wsd_{deg}way"] = float(v)
-    dp = _last(r"DP epsilon=([\d.]+), delta=([\d.eE+-]+), noise_multiplier=([\d.]+), num_iterations=(\d+)")
+    # epsilon may be printed as "inf" (no-DP / epsilon=inf case).
+    dp = _last(r"DP epsilon=(inf|[\d.]+), delta=([\d.eE+-]+), noise_multiplier=([\d.]+), num_iterations=(\d+)")
     if dp:
         out["dp"] = {
             "epsilon": float(dp[0]),
