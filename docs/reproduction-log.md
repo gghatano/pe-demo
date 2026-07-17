@@ -301,9 +301,28 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
 - Upper-bound rows added to `content/adult-embedding.md`; conclusion is a
   utility/fidelity/consistency trade-off, no strong claim.
 
+## 2026-07-17: Adult epsilon sweep (#38)
+
+- `scripts/experiments/run_adult_epsilon.py` (official `TabularEmbedding`, seeded,
+  `--epsilon`; `inf` = noise_multiplier 0 = PE upper bound). Ran ε ∈ {0.5,1,2,4,8,∞}
+  × seed 0 (6 runs, ~48 min each).
+- Utility vs ε (single seed): acc 79.98/80.67/81.27/81.84/82.61/82.47;
+  macroF1 68.68/71.43/73.04/73.43/73.04/72.79; AUC 82.05/84.53/86.29/87.26/88.02/87.46.
+- **ε is a real lever** (unlike the embedding): ε 0.5→8 lifts acc ~2.6, AUC ~6, macroF1
+  ~4.8. Minority discrimination (AUC/F1) benefits most. Diminishing returns; plateaus at
+  ε≈8/∞ (acc ~82.5%).
+- **Gap decomposition**: the ~3.3-pt gap at ε=1 (real-1000 84.01 vs 80.67) splits into
+  ~1.8 pt DP-noise (closable by raising ε) + ~1.5 pt PE-generation residual (ε=∞ PE reaches
+  only 82.47, still below the same-size real ceiling 84.01). Neither ε nor the embedding
+  closes the generation residual.
+- Figure `results/figures/adult_epsilon_sweep.png`; report section added to
+  `content/adult-embedding.md`. Single-seed caveat noted (ε=8 vs ∞ non-monotonicity is
+  seed noise). Does not overwrite the official `adult` (ε=1) result.
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.
+- Multi-seed epsilon sweep (single seed done) — extends #38 if the trend warrants.
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.

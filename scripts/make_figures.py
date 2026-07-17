@@ -22,6 +22,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SUMMARIES = REPO_ROOT / "results" / "summaries"
@@ -41,6 +42,52 @@ LABELS = {
 def _read(path: Path) -> list[dict]:
     with path.open(encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def _epsilon_sweep_figure() -> None:
+    """Adult utility vs DP budget epsilon (issue #38). Reads adult_eps*_seed*.json.
+    Draws acc/macroF1/AUC over epsilon with the real-data ceiling as reference lines."""
+    import json as _json
+    pts = []
+    for p in sorted(SUMMARIES.glob("adult_eps*_seed*.json")):
+        d = _json.loads(p.read_text(encoding="utf-8"))
+        fm = d.get("final_metrics", {})
+        e = d.get("epsilon")
+        ev = float("inf") if e == "inf" else float(e)
+        pts.append((ev, fm.get("classifier_test_acc"), fm.get("classifier_test_f1"),
+                    fm.get("classifier_test_auc")))
+    if not pts:
+        return
+    pts.sort(key=lambda r: r[0])
+    # x positions: finite eps on log2 axis, inf as the next tick to the right.
+    finite = [r for r in pts if not np.isinf(r[0])]
+    xs, labels = [], []
+    for r in pts:
+        if np.isinf(r[0]):
+            xpos = (np.log2(finite[-1][0]) + 1) if finite else 1
+            labels.append("inf")
+        else:
+            xpos = np.log2(r[0])
+            labels.append(str(r[0]).rstrip("0").rstrip("."))
+        xs.append(xpos)
+    fig, ax = plt.subplots(figsize=(7.0, 4.2))
+    for idx, name in ((1, "accuracy"), (2, "macro F1"), (3, "AUC")):
+        ys = [r[idx] for r in pts]
+        ax.plot(xs, ys, marker="o", ms=5, label=name)
+    # reference lines: same-size real-data ceiling + majority baseline (measured).
+    ax.axhline(84.01, ls="--", lw=1, color="gray", label="real-1000 acc (ceiling)")
+    ax.axhline(75.77, ls=":", lw=1, color="gray", label="majority baseline")
+    ax.set_xticks(xs)
+    ax.set_xticklabels(labels)
+    ax.set_xlabel("epsilon (DP budget; higher = less privacy)")
+    ax.set_ylabel("score (%)")
+    ax.set_title("Adult: utility vs DP budget epsilon (single seed)")
+    ax.grid(True, alpha=0.3)
+    ax.legend(fontsize=8, ncol=2)
+    fig.tight_layout()
+    fig.savefig(FIGURES / "adult_epsilon_sweep.png", dpi=120)
+    print(f"wrote {FIGURES / 'adult_epsilon_sweep.png'}")
+    plt.close(fig)
 
 
 def _xor_features_figure() -> None:
@@ -94,6 +141,7 @@ def main() -> int:
         return "xor" in stem or "seed" in stem or stem.startswith("adult_embedding")
     series = {p.stem: _read(p) for p in sorted(ITERS.glob("*.csv")) if not _skip(p.stem)}
     _xor_features_figure()
+    _epsilon_sweep_figure()
     if not series:
         print("No per-iteration series found; run collect_results.py first.")
         return 1
