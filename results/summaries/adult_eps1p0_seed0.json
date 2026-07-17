@@ -1,0 +1,47 @@
+{
+  "experiment_name": "adult_eps1p0_seed0",
+  "kind": "adult_epsilon_sweep",
+  "official_script_path": "example/tabular/adult.py",
+  "deviation": "seeded; epsilon varied (official demo uses epsilon=1). algorithm unchanged.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 1.0 --seed 0",
+  "epsilon": 1.0,
+  "classifier_model": "tabicl",
+  "seed": 0,
+  "python_version": "3.12.13",
+  "uv_lock_commit": "d58ab90e6794ba1016bab5254c66b5dd4837786b",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Adult (real)",
+  "dataset_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/adult/",
+  "num_iterations": 30,
+  "num_samples": 1000,
+  "num_private_samples": 33334,
+  "started_at_utc": "2026-07-17T05:25:02.385065+00:00",
+  "runtime_seconds": 2904.2,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 80.67,
+    "classifier_test_f1": 71.43,
+    "classifier_test_auc": 84.53,
+    "wsd_1way": 0.02605036,
+    "wsd_2way": 0.04750752,
+    "wsd_3way": 0.06909251,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 2.8805876962760987e-06,
+      "noise_multiplier": 21.557976254720614,
+      "accounted_num_iterations": 29
+    }
+  },
+  "artifacts": {
+    "log_relpath": "results\\raw\\adult_eps\\adult_eps1p0_seed0\\log.txt",
+    "synthetic_csvs": 30,
+    "checkpoint_files": 32
+  }
+}
