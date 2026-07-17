@@ -27,7 +27,7 @@ import pandas as pd
 from pe.embedding import Embedding
 from pe.constant.data import TABULAR_DATA_COLUMN_NAME
 
-VARIANTS = ("official", "robust_numeric", "adult_semantic")
+VARIANTS = ("official", "robust_numeric", "adult_semantic", "public_fe")
 
 NUMERIC_COLS = ["age", "fnlwgt", "education-num", "capital-gain", "capital-loss", "hours-per-week"]
 CATEGORICAL_COLS = ["workclass", "education", "marital-status", "occupation",
@@ -52,6 +52,15 @@ EDUCATION_TO_NUM = {
     "11th": 7, "12th": 8, "HS-grad": 9, "Some-college": 10, "Assoc-voc": 11,
     "Assoc-acdm": 12, "Bachelors": 13, "Masters": 14, "Prof-school": 15, "Doctorate": 16,
 }
+
+# --- public feature-engineering constants (variant "public_fe") ---
+# Fixed, public bin edges from the common Adult ML literature (NOT private quantiles),
+# so binning does not leak the private data. Sources in docs/research/adult-embedding.md.
+AGE_BIN_EDGES = [35, 50]          # young <=35, middle (35,50], old >50
+HOURS_BIN_EDGES = [30, 40, 60]    # part-time / standard / long / excessive
+US_COUNTRY = "United-States"      # native-country grouped to US vs non-US
+# Categoricals kept as-is (one-hot) in public_fe (education & native-country handled specially).
+PUBLIC_FE_CAT_COLS = ["workclass", "marital-status", "occupation", "relationship", "race", "sex"]
 
 
 @dataclass(frozen=True)
@@ -124,6 +133,40 @@ class AdultEmbedding(Embedding):
                 pen[i, 0] = 1.0
         return pen
 
+    # --- public feature-engineering helpers (variant "public_fe") ---
+
+    @staticmethod
+    def _ordinal_bins(x: np.ndarray, edges: list[float], weight: float) -> np.ndarray:
+        """Ordinal bin index (via fixed public edges) normalized to [0,1] x weight.
+        Uses np.digitize with public constants, so it does not learn from private data."""
+        idx = np.digitize(x.astype(float), edges)  # 0..len(edges)
+        denom = float(len(edges)) or 1.0
+        return ((idx / denom) * weight).reshape(-1, 1)
+
+    @staticmethod
+    def _extra_income_onehot(gain: np.ndarray, loss: np.ndarray, weight: float) -> np.ndarray:
+        """capital-gain/loss -> {none, positive, negative} one-hot (public sign encoding)."""
+        gain = gain.astype(float)
+        loss = loss.astype(float)
+        n = len(gain)
+        out = np.zeros((n, 3))
+        positive = gain > 0
+        negative = (~positive) & (loss > 0)
+        none = ~(positive | negative)
+        out[none, 0] = weight
+        out[positive, 1] = weight
+        out[negative, 2] = weight
+        return out
+
+    def _us_nonus_onehot(self, country: np.ndarray, weight: float) -> np.ndarray:
+        """native-country grouped into US vs non-US (public geography, 2 dims)."""
+        out = np.zeros((len(country), 2))
+        for i, v in enumerate(country):
+            if v not in self._info["native-country"]["categories"]:
+                raise ValueError(f"AdultEmbedding: unknown category {v!r} in column 'native-country'")
+            out[i, 0 if v == US_COUNTRY else 1] = weight
+        return out
+
     def compute_vectors(self, features_df: pd.DataFrame) -> np.ndarray:
         """Build the embedding matrix (n_samples x dim) from a features DataFrame
         whose columns are the Adult feature names (label excluded)."""
@@ -133,6 +176,24 @@ class AdultEmbedding(Embedding):
 
         cfg = self._config
         parts: list[np.ndarray] = []
+
+        if cfg.variant == "public_fe":
+            # Public, non-leaking feature engineering (fixed public rules; the private
+            # target `income` and private statistics are never used).
+            nw, cw = cfg.numerical_weight, cfg.categorical_weight
+            parts.append(self._ordinal_bins(features_df["age"].to_numpy(), AGE_BIN_EDGES, nw))
+            parts.append(self._ordinal_bins(features_df["hours-per-week"].to_numpy(), HOURS_BIN_EDGES, nw))
+            parts.append(self._minmax_info(features_df["education-num"].to_numpy(), "education-num", nw))
+            # capital: 3-way sign one-hot + a public log-magnitude (drops raw gain/loss & fnlwgt).
+            gain = features_df["capital-gain"].to_numpy()
+            loss = features_df["capital-loss"].to_numpy()
+            parts.append(self._extra_income_onehot(gain, loss, cw))
+            parts.append(self._log_public(gain.astype(float) + loss.astype(float),
+                                          "capital-gain", cfg.capital_amount_weight))
+            for col in PUBLIC_FE_CAT_COLS:
+                parts.append(self._onehot(features_df[col].to_numpy(), col, cw))
+            parts.append(self._us_nonus_onehot(features_df["native-country"].to_numpy(), cw))
+            return np.concatenate(parts, axis=1)
 
         if cfg.variant == "official":
             for col in NUMERIC_COLS:
