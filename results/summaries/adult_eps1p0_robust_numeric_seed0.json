@@ -1,19 +1,20 @@
 {
-  "experiment_name": "adult_epsinf_seed0",
+  "experiment_name": "adult_eps1p0_robust_numeric_seed0",
   "kind": "adult_epsilon_sweep",
   "official_script_path": "example/tabular/adult.py",
-  "deviation": "seeded; epsilon varied (official demo uses epsilon=1). algorithm unchanged.",
+  "deviation": "seeded; epsilon varied (official demo uses epsilon=1); embedding=robust_numeric. algorithm unchanged.",
   "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
-  "command": "python scripts/experiments/run_adult_epsilon.py --epsilon inf --seed 0",
-  "epsilon": "inf",
+  "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 1.0 --seed 0",
+  "epsilon": 1.0,
+  "variant": "robust_numeric",
   "classifier_model": "tabicl",
   "seed": 0,
   "python_version": "3.12.13",
-  "uv_lock_commit": "d58ab90e6794ba1016bab5254c66b5dd4837786b",
+  "uv_lock_commit": "92fcbe4f6f0a5fa0cbfe99b988d6f759a9c76d89",
   "os": "Windows 11 (10.0.26200)",
   "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
   "privacy_parameters": {
-    "epsilon": "inf",
+    "epsilon": 1.0,
     "delta": "1/n/ln(n)",
     "mechanism": "Gaussian on NN histogram"
   },
@@ -22,25 +23,25 @@
   "num_iterations": 30,
   "num_samples": 1000,
   "num_private_samples": 33334,
-  "started_at_utc": "2026-07-17T03:48:14.175509+00:00",
-  "runtime_seconds": 2873.09,
+  "started_at_utc": "2026-07-17T13:02:54.607012+00:00",
+  "runtime_seconds": 2962.64,
   "reproduction_status": "EXECUTED",
   "final_metrics": {
-    "classifier_test_acc": 82.47,
-    "classifier_test_f1": 72.79,
-    "classifier_test_auc": 87.46,
-    "wsd_1way": 0.02462878,
-    "wsd_2way": 0.04493961,
-    "wsd_3way": 0.06485628,
+    "classifier_test_acc": 81.59,
+    "classifier_test_f1": 70.45,
+    "classifier_test_auc": 85.67,
+    "wsd_1way": 0.04707686,
+    "wsd_2way": 0.08979182,
+    "wsd_3way": 0.13256194,
     "dp": {
-      "epsilon": "inf",
+      "epsilon": 1.0,
       "delta": 2.8805876962760987e-06,
-      "noise_multiplier": 0.0,
+      "noise_multiplier": 21.557976254720614,
       "accounted_num_iterations": 29
     }
   },
   "artifacts": {
-    "log_relpath": "results\\raw\\adult_eps\\adult_epsinf_seed0\\log.txt",
+    "log_relpath": "results\\raw\\adult_eps\\adult_eps1p0_robust_numeric_seed0\\log.txt",
     "synthetic_csvs": 30,
     "checkpoint_files": 32
   }

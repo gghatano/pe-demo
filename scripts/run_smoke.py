@@ -110,7 +110,9 @@ def parse_final_metrics(log_txt: Path) -> dict[str, object]:
     dp = _last(r"DP epsilon=(inf|[\d.]+), delta=([\d.eE+-]+), noise_multiplier=([\d.]+), num_iterations=(\d+)")
     if dp:
         out["dp"] = {
-            "epsilon": float(dp[0]),
+            # keep "inf" as a string: float('inf') serializes to the invalid JSON
+            # token `Infinity`, which strict parsers (jq, JS) reject.
+            "epsilon": "inf" if dp[0] == "inf" else float(dp[0]),
             "delta": float(dp[1]),
             "noise_multiplier": float(dp[2]),
             "accounted_num_iterations": int(dp[3]),
