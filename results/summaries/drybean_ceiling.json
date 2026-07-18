@@ -1,0 +1,20 @@
+{
+  "dataset": "Dry Bean",
+  "test_n": 2723,
+  "n_classes": 7,
+  "majority_baseline_acc": 26.04,
+  "real_subsample_tabicl": {
+    "acc": 91.37,
+    "macro_f1": 92.64,
+    "train_n": 1000,
+    "macro_auc_ovr": 99.45
+  },
+  "real_full_xgboost": {
+    "acc": 92.54,
+    "macro_f1": 93.68,
+    "train_n": 10888,
+    "macro_auc_ovr": 99.52
+  },
+  "subsample_n": 1000,
+  "seed": 0
+}
