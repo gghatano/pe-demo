@@ -67,6 +67,8 @@ def main() -> int:
     parser.add_argument("--epsilon", type=float, required=True, help="DP budget; use 'inf' for no noise")
     parser.add_argument("--variant", default="official",
                         choices=["official", "robust_numeric", "adult_semantic", "public_fe"])
+    parser.add_argument("--capital-presence-weight", type=float, default=None,
+                        help="override AdultEmbeddingConfig.capital_presence_weight (diagnostic)")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--num-iterations", type=int, default=30)
     parser.add_argument("--num-samples", type=int, default=1000)
@@ -84,6 +86,8 @@ def main() -> int:
     tag = _eps_tag(eps)
     # Keep the official-embedding names unchanged (#38); tag other variants.
     vpart = "" if args.variant == "official" else f"_{args.variant}"
+    if args.capital_presence_weight is not None:
+        vpart += f"_cpw{args.capital_presence_weight}".replace(".", "p")
     exp_name = f"adult_eps{tag}{vpart}_seed{args.seed}"
     exp_folder = REPO_ROOT / "results" / "raw" / "adult_eps" / exp_name
     exp_folder.mkdir(parents=True, exist_ok=True)
@@ -98,7 +102,11 @@ def main() -> int:
     num_iterations = args.num_iterations
     api = TabularAPI(info=priv_info, mutation_rate_init=0.5, mutation_rate_final=0.01,
                      decay_type="polynomial", gamma=0.2, num_iterations=num_iterations)
-    embedding = AdultEmbedding(info=priv_info, config=AdultEmbeddingConfig(variant=args.variant))
+    cfg_kwargs = {"variant": args.variant}
+    if args.capital_presence_weight is not None:
+        cfg_kwargs["capital_presence_weight"] = args.capital_presence_weight
+    emb_config = AdultEmbeddingConfig(**cfg_kwargs)
+    embedding = AdultEmbedding(info=priv_info, config=emb_config)
     histogram = NearestNeighbors(embedding=embedding, mode="L2", lookahead_degree=0, backend="torch")
     population1 = PEPopulation(api=api, initial_variation_api_fold=0, next_variation_api_fold=1,
                                keep_selected=False, selection_mode="sample", histogram_threshold=0)
@@ -139,6 +147,7 @@ def main() -> int:
         "command": f"python scripts/experiments/run_adult_epsilon.py --epsilon {eps} --seed {args.seed}",
         "epsilon": ("inf" if np.isinf(eps) else eps),
         "variant": args.variant,
+        "embedding_config": vars(emb_config),
         "classifier_model": "tabicl",
         "seed": args.seed,
         "python_version": platform.python_version(),

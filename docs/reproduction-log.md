@@ -337,6 +337,20 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
 - Figure `adult_epsilon_sweep.png` now overlays official vs robust accuracy; report/caption
   updated. Does not overwrite the official `adult` result.
 
+## 2026-07-18: presence-dimension diagnostic (why robust hurts)
+
+- Added `--capital-presence-weight` to `run_adult_epsilon.py` and ran
+  `robust_numeric` with the capital presence dimension disabled (`=0`) at ε=∞.
+- Result (ε=∞): official acc 82.47 / F1 72.79 / AUC 87.46; robust 77.63 / 63.30 /
+  79.13; **robust presence=0 → 80.94 / 72.15 / 82.42**. WSD also improved toward
+  official (0.037→0.031 1-way).
+- **Confirms** the hypothesis: the binary capital presence dimension is the main
+  culprit — it isolates the ~10% capital-havers and lets NN matching be dominated by
+  capital, starving the other (classifier-relevant) columns. Removing it recovers ~2/3
+  of the acc gap and nearly all of the F1 gap. The residual (~1.5 acc, ~5 AUC) is the
+  smaller warp from the fnlwgt log-downweight and capital log-amount. Consistent with
+  "departing from the plain min-max (evaluation-aligned) space costs utility."
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.
