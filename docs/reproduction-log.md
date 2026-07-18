@@ -370,6 +370,23 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
   the three ε=1 Adult accuracies, surfacing the classifier-FE-vs-distance-FE lesson,
   dedup, precision fixes). Hero title updated.
 
+## 2026-07-18: Bank Marketing new-dataset application (#49)
+
+- First application of the new-dataset checklist (#25) to a demo-external dataset.
+  `scripts/datasets/bank/preprocess.py` (download UCI bank-full.csv, drop the leaky
+  `duration`, stratified 80/20 split, metadata + manifest with sha256; CSVs gitignored),
+  `scripts/experiments/run_bank.py` (official TabularEmbedding, seeded, ε arg, Adult
+  config), `scripts/datasets/bank/measure_ceiling.py` → `results/summaries/bank_ceiling.json`.
+- Bank is strongly imbalanced (88.3% majority "no"), so accuracy is near-flat.
+- DP synthetic (ε=1, seed 0): acc 88.19, **macro F1 58.71**, AUC 72.75, WSD
+  0.048/0.089/0.128 (runtime ~57 min). Ceiling: real-1000→real-test acc 88.61 / F1
+  **58.43** / AUC 77.09; real-full xgboost acc 89.55 / F1 66.68 / AUC 79.42.
+- **Finding**: unlike Adult (DP synthetic ~4 acc below the same-size ceiling), on Bank
+  the DP synthetic **matches the same-size real macro F1** (58.7 vs 58.4) and only
+  trails on AUC (~4 pts). Accuracy is uninformative under strong imbalance. The gap to
+  full-data (F1 66.7) is data-quantity/model, not DP. Reinforces "on imbalanced data,
+  evaluate with macro F1 / AUC, not accuracy". `EXECUTED` (no official comparison).
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.

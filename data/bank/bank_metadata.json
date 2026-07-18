@@ -1,0 +1,25 @@
+{
+  "float_columns": [],
+  "int_columns": [
+    "age",
+    "balance",
+    "day",
+    "campaign",
+    "pdays",
+    "previous"
+  ],
+  "cat_columns": [
+    "job",
+    "marital",
+    "education",
+    "default",
+    "housing",
+    "loan",
+    "contact",
+    "month",
+    "poutcome"
+  ],
+  "label_columns": [
+    "y"
+  ]
+}

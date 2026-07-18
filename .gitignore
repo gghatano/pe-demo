@@ -17,6 +17,9 @@ external/
 
 # Data and generated experiment outputs
 data/cache/
+# Prepared dataset CSVs are regenerable from scripts/datasets/**/preprocess.py;
+# keep only the tracked metadata.json / manifest.json.
+data/**/*.csv
 results/raw/
 results/synthetic/
 results/checkpoints/

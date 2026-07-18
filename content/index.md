@@ -97,6 +97,10 @@ PE ε=1（既定）               80.7%
 4. データ特性の知見：SCM は prior で下流精度が大差だが seed に対し安定。不均衡データ（Adult・
    Person Activity）は accuracy と macro F1 が乖離し、少数クラスの再現が弱い。XOR は次数が上がる
    ほど再現が難しくなる。
+5. **別データでの確認（Bank Marketing、#49）**：公式デモ外のデータに [チェックリスト](https://github.com/gghatano/pe-demo/blob/main/docs/guides/new-dataset-checklist.md)（#25）を
+   適用。強い不均衡（88% 多数派）で accuracy は無意味だが、DP 合成（ε=1）は **同サイズ実データの
+   macro F1 に一致**（58.7 vs 58.4）、AUC のみ ~4 点下。「どの指標を見るか」で結論が変わるので、
+   不均衡データは accuracy でなく macro F1・AUC で評価すべき（[📈 詳細結果](results-detail.html)）。
 
 ## 5. 制約と再現性
 
