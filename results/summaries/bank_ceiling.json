@@ -1,0 +1,19 @@
+{
+  "dataset": "Bank Marketing",
+  "test_n": 9043,
+  "majority_baseline_acc": 88.3,
+  "real_subsample_tabicl": {
+    "acc": 88.61,
+    "macro_f1": 58.43,
+    "train_n": 1000,
+    "auc": 77.09
+  },
+  "real_full_xgboost": {
+    "acc": 89.55,
+    "macro_f1": 66.68,
+    "train_n": 36168,
+    "auc": 79.42
+  },
+  "subsample_n": 1000,
+  "seed": 0
+}

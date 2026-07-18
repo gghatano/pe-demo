@@ -1,0 +1,42 @@
+{
+  "dataset": "UCI Bank Marketing (bank-full.csv)",
+  "source_url": "https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip",
+  "bank_full_sha256": "d1513ec63b385506f7cfce9f2c5caa9fe99e7ba4e8c3fa264b3aaf0f849ed32d",
+  "dropped_columns": [
+    "duration"
+  ],
+  "rows_total": 45211,
+  "rows_train": 36168,
+  "rows_test": 9043,
+  "split": "stratified 80/20 on y",
+  "seed": 42,
+  "label_balance_test": {
+    "no": 7985,
+    "yes": 1058
+  },
+  "metadata": {
+    "float_columns": [],
+    "int_columns": [
+      "age",
+      "balance",
+      "day",
+      "campaign",
+      "pdays",
+      "previous"
+    ],
+    "cat_columns": [
+      "job",
+      "marital",
+      "education",
+      "default",
+      "housing",
+      "loan",
+      "contact",
+      "month",
+      "poutcome"
+    ],
+    "label_columns": [
+      "y"
+    ]
+  }
+}
