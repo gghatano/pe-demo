@@ -1,0 +1,47 @@
+{
+  "experiment_name": "bank_eps1p0_seed0",
+  "kind": "bank_marketing",
+  "official_script_path": "n/a (new dataset via scripts/experiments/run_bank.py)",
+  "deviation": "new dataset (UCI Bank Marketing); official TabularEmbedding + algorithm; seeded.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/run_bank.py --epsilon 1.0 --seed 0",
+  "epsilon": 1.0,
+  "classifier_model": "tabicl",
+  "seed": 0,
+  "python_version": "3.12.13",
+  "uv_lock_commit": "9364383d1ef731d9525c4e0414c3c19ce77153f5",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Bank Marketing (real)",
+  "dataset_source": "data/bank/ (see data/bank/manifest.json)",
+  "num_iterations": 30,
+  "num_samples": 1000,
+  "num_private_samples": 36168,
+  "started_at_utc": "2026-07-18T10:58:19.150140+00:00",
+  "runtime_seconds": 3424.94,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 88.19,
+    "classifier_test_f1": 58.71,
+    "classifier_test_auc": 72.75,
+    "wsd_1way": 0.0483686,
+    "wsd_2way": 0.08929095,
+    "wsd_3way": 0.12752705,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 2.6342353845883124e-06,
+      "noise_multiplier": 21.660626385329657,
+      "accounted_num_iterations": 29
+    }
+  },
+  "artifacts": {
+    "log_relpath": "results/raw/bank/bank_eps1p0_seed0/log.txt",
+    "synthetic_csvs": 30,
+    "checkpoint_files": 32
+  }
+}
