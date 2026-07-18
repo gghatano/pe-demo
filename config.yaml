@@ -1,5 +1,5 @@
 # レポートサイトのメタ情報（ark ビルダーが参照）。
 report:
-  hero_title: "Tab-PE 公式実装 再現追試"
+  hero_title: "Tab-PE 公式デモの再現と下流 utility の分析"
   repo_url: "https://github.com/gghatano/pe-demo"
   upstream_url: "https://github.com/microsoft/DPSDA"

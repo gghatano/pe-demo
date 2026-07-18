@@ -25,7 +25,7 @@ from ark import build_html, context as ctx  # noqa: E402
 # ページ構成（単一の真実）。out 名は content 内の相互リンクと一致させる。
 PAGES = [
     {"md": "content/index.md", "out": "index.html", "key": "report",
-     "nav": "📄 レポート", "subtitle": "Tab-PE 公式デモ 再現追試"},
+     "nav": "📄 レポート", "subtitle": "再現と下流 utility の分析（要約）"},
     {"md": "content/method-tabpe.md", "out": "method-tabpe.html", "key": "method",
      "nav": "🧩 Tab-PE", "subtitle": "手法・論文↔コード対応"},
     {"md": "content/experiments.md", "out": "experiments.html", "key": "experiments",
@@ -35,7 +35,7 @@ PAGES = [
     {"md": "content/results-detail.md", "out": "results-detail.html", "key": "results",
      "nav": "📈 詳細結果", "subtitle": "実験別の指標と反復推移"},
     {"md": "content/adult-embedding.md", "out": "adult-embedding.html", "key": "adult-embedding",
-     "nav": "🧬 Adult埋め込み", "subtitle": "埋め込み精緻化の追加実験（#24）"},
+     "nav": "🧬 追加分析", "subtitle": "埋め込み・上限・ε スイープ・診断（詳細）"},
     {"md": "content/engineering-notes.md", "out": "engineering-notes.html", "key": "engineering",
      "nav": "🛠 エンジニアリング", "subtitle": "環境構築・再現手順・実装メモ"},
     {"md": "content/faq.md", "out": "faq.html", "key": "faq",

@@ -69,6 +69,8 @@ def main() -> int:
                         choices=["official", "robust_numeric", "adult_semantic", "public_fe"])
     parser.add_argument("--capital-presence-weight", type=float, default=None,
                         help="override AdultEmbeddingConfig.capital_presence_weight (diagnostic)")
+    parser.add_argument("--capital-amount-weight", type=float, default=None,
+                        help="override AdultEmbeddingConfig.capital_amount_weight (diagnostic)")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--num-iterations", type=int, default=30)
     parser.add_argument("--num-samples", type=int, default=1000)
@@ -88,6 +90,8 @@ def main() -> int:
     vpart = "" if args.variant == "official" else f"_{args.variant}"
     if args.capital_presence_weight is not None:
         vpart += f"_cpw{args.capital_presence_weight}".replace(".", "p")
+    if args.capital_amount_weight is not None:
+        vpart += f"_caw{args.capital_amount_weight}".replace(".", "p")
     exp_name = f"adult_eps{tag}{vpart}_seed{args.seed}"
     exp_folder = REPO_ROOT / "results" / "raw" / "adult_eps" / exp_name
     exp_folder.mkdir(parents=True, exist_ok=True)
@@ -105,6 +109,8 @@ def main() -> int:
     cfg_kwargs = {"variant": args.variant}
     if args.capital_presence_weight is not None:
         cfg_kwargs["capital_presence_weight"] = args.capital_presence_weight
+    if args.capital_amount_weight is not None:
+        cfg_kwargs["capital_amount_weight"] = args.capital_amount_weight
     emb_config = AdultEmbeddingConfig(**cfg_kwargs)
     embedding = AdultEmbedding(info=priv_info, config=emb_config)
     histogram = NearestNeighbors(embedding=embedding, mode="L2", lookahead_degree=0, backend="torch")
