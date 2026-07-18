@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import json
 import platform
+import random
 import subprocess
 import sys
 import time
@@ -102,7 +103,9 @@ def main() -> int:
     args = parser.parse_args()
 
     # Seed control (subset of #22): make PE generation and DP noise reproducible.
+    # Same triple as the other runners (np / random / torch) so the whole path is seeded.
     np.random.seed(args.seed)
+    random.seed(args.seed)
     try:
         import torch
         torch.manual_seed(args.seed)
@@ -135,7 +138,9 @@ def main() -> int:
     save_tab_to_csv = SaveTabToCSV(output_folder=str(exp_folder / "synthetic_tab"))
     tab_classifier = TabClassifier(test_data=test_data, model_name="tabicl",
                                    filter_criterion={VARIATION_API_FOLD_ID_COLUMN_NAME: -1})
-    wsd = [ComputeWSD(priv_data=priv_data, degree=d, num_samples=args.num_samples, seed=args.seed,
+    # WSD's reference subsample seed is fixed (42) to match the other runners, so the
+    # fidelity metric is measured against the same reference regardless of the run seed.
+    wsd = [ComputeWSD(priv_data=priv_data, degree=d, num_samples=args.num_samples, seed=42,
                       filter_criterion={VARIATION_API_FOLD_ID_COLUMN_NAME: -1}) for d in (1, 2, 3)]
     csv_print = CSVPrint(output_folder=str(exp_folder))
     log_print = LogPrint()
