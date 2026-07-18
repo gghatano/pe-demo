@@ -1,0 +1,26 @@
+{
+  "float_columns": [
+    "Perimeter",
+    "MajorAxisLength",
+    "MinorAxisLength",
+    "AspectRation",
+    "Eccentricity",
+    "EquivDiameter",
+    "Extent",
+    "Solidity",
+    "roundness",
+    "Compactness",
+    "ShapeFactor1",
+    "ShapeFactor2",
+    "ShapeFactor3",
+    "ShapeFactor4"
+  ],
+  "int_columns": [
+    "Area",
+    "ConvexArea"
+  ],
+  "cat_columns": [],
+  "label_columns": [
+    "Class"
+  ]
+}

@@ -161,3 +161,33 @@ DP 合成の WSD 1/2/3-way = 0.048/0.089/0.128。所見:
 Adult（同サイズ上限に accuracy で ~4 点届かない）と対照的に、Bank では metric で結論が変わる
 （macro F1 は一致、AUC のみ差）。**不均衡データでは accuracy を見ず、macro F1・AUC で評価すべき**、
 という一般的な教訓の裏付けになった。判定は `EXECUTED`（公式公表値との比較ではない）。
+
+## Dry Bean（新規データ適用、#55）
+
+多クラス（7 品種）・比較的均衡・特徴が幾何的に分離しやすいデータでの確認。UCI Dry Bean
+（豆画像から抽出した 16 個の幾何形状特徴で品種を分類）。リーク列なし、層化 80/20 分割。official
+`TabularEmbedding`・ε=1・30 iter（Adult・Bank と同条件、分類器 tabicl は多クラスをそのまま扱う）。
+準備は `scripts/datasets/drybean/preprocess.py`、実行は `scripts/experiments/run_drybean.py`。
+上限は `scripts/datasets/drybean/measure_ceiling.py`（`results/summaries/drybean_ceiling.json`）。
+
+| | acc | macro F1 |
+|---|---|---|
+| 多数派ベースライン（DERMASON） | 26.0 | — |
+| **DP 合成 ε=1（tabicl）** | **90.08** | **91.14** |
+| real-1000 → real-test（同サイズ上限） | 91.37 | 92.64 |
+| real-full → real-test（xgboost、絶対上限） | 92.54 | 93.68 |
+
+DP 合成の WSD 1/2/3-way = 0.020/0.043/0.071（Adult・Bank より低く、分布忠実度が高い）。所見:
+
+- **DP 合成が同サイズ上限にほぼ一致**（acc 90.08 vs 91.37、macro F1 91.14 vs 92.64）。差は acc で
+  ~1.3 点・macro F1 で ~1.5 点にとどまり、これまでのデータで最小。全量上限（92.5/93.7）との差も
+  ~2.5 点。
+- **多数派 26% → 90% と accuracy が大きく意味を持つ**（Bank と対照的）。クラスが幾何特徴で綺麗に
+  分離するため、DP 合成でも分類器が高精度を保てる。**7 クラスでもクラス数自体は不利にならず、
+  分離しやすさが効く**。
+- WSD が全データ中で最も低く、周辺分布の再現が良い。分離しやすい多クラスでは Tab-PE がクラス構造
+  をよく保存し、下流 utility が上限に近づく。
+
+3 データを並べると、**同サイズ上限とのギャップはタスクの分離しやすさで決まる**ことが見える:
+Dry Bean（分離しやすい均衡多クラス）はほぼ一致、Bank（極端不均衡二値）は macro F1 一致・AUC のみ
+差、Adult（重なる不均衡二値）は acc で ~4 点差。判定は `EXECUTED`（公式公表値との比較ではない）。

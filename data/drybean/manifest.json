@@ -1,0 +1,46 @@
+{
+  "dataset": "UCI Dry Bean Dataset",
+  "source_url": "https://archive.ics.uci.edu/static/public/602/dry+bean+dataset.zip",
+  "xlsx_sha256": "a9efa69741c6c5d95167c962a13da23a456f7e940402a5add12639790e01f714",
+  "rows_total": 13611,
+  "rows_train": 10888,
+  "rows_test": 2723,
+  "split": "stratified 80/20 on Class",
+  "seed": 42,
+  "n_classes": 7,
+  "class_balance": {
+    "DERMASON": 3546,
+    "SIRA": 2636,
+    "SEKER": 2027,
+    "HOROZ": 1928,
+    "CALI": 1630,
+    "BARBUNYA": 1322,
+    "BOMBAY": 522
+  },
+  "metadata": {
+    "float_columns": [
+      "Perimeter",
+      "MajorAxisLength",
+      "MinorAxisLength",
+      "AspectRation",
+      "Eccentricity",
+      "EquivDiameter",
+      "Extent",
+      "Solidity",
+      "roundness",
+      "Compactness",
+      "ShapeFactor1",
+      "ShapeFactor2",
+      "ShapeFactor3",
+      "ShapeFactor4"
+    ],
+    "int_columns": [
+      "Area",
+      "ConvexArea"
+    ],
+    "cat_columns": [],
+    "label_columns": [
+      "Class"
+    ]
+  }
+}
