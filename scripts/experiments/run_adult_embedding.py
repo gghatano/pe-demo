@@ -202,7 +202,7 @@ def main() -> int:
         "final_metrics": fm,
         "extra_metrics": extra,
         "artifacts": {
-            "log_relpath": str((exp_folder / "log.txt").relative_to(REPO_ROOT)),
+            "log_relpath": (exp_folder / "log.txt").relative_to(REPO_ROOT).as_posix(),
             "synthetic_csvs": len(synth_files),
             "checkpoint_files": len(list((exp_folder / "checkpoint").glob("*")))
                                 if (exp_folder / "checkpoint").exists() else 0,

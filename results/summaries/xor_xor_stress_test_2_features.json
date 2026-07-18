@@ -26,7 +26,7 @@
     "classifier_test_acc": "NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN)"
   },
   "artifacts": {
-    "log_relpath": "results\\raw\\xor\\xor_stress_test_2_features\\log.txt",
+    "log_relpath": "results//raw//xor//xor_stress_test_2_features//log.txt",
     "synthetic_csvs": [
       "000000000.csv",
       "000000001.csv",

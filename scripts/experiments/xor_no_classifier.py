@@ -175,7 +175,7 @@ def main() -> int:
             "classifier_test_acc": "NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN)",
         },
         "artifacts": {
-            "log_relpath": str((exp_folder / "log.txt").relative_to(REPO_ROOT)),
+            "log_relpath": (exp_folder / "log.txt").relative_to(REPO_ROOT).as_posix(),
             "synthetic_csvs": sorted(p.name for p in synth.glob("*.csv")) if synth.exists() else [],
             "checkpoint_files": len(list(ckpt.glob("*"))) if ckpt.exists() else 0,
         },

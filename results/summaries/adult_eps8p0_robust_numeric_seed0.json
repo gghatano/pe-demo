@@ -41,7 +41,7 @@
     }
   },
   "artifacts": {
-    "log_relpath": "results\\raw\\adult_eps\\adult_eps8p0_robust_numeric_seed0\\log.txt",
+    "log_relpath": "results//raw//adult_eps//adult_eps8p0_robust_numeric_seed0//log.txt",
     "synthetic_csvs": 30,
     "checkpoint_files": 32
   }

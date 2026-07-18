@@ -103,7 +103,7 @@ def normalize(path: Path) -> dict:
         "epsilon": dp.get("epsilon", priv.get("epsilon", "")),
         "delta": dp.get("delta", priv.get("delta", "")),
         "notes": " | ".join(notes_bits),
-        "_source_json": str(path.relative_to(REPO_ROOT)),
+        "_source_json": path.relative_to(REPO_ROOT).as_posix(),
     }
 
 

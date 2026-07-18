@@ -190,7 +190,7 @@ def main() -> int:
         synth = dest / "synthetic_tab"
         ckpt = dest / "checkpoint"
         harvested[exp] = {
-            "copied_to": str(dest.relative_to(REPO_ROOT)),
+            "copied_to": dest.relative_to(REPO_ROOT).as_posix(),
             "synthetic_csvs": sorted(p.name for p in synth.glob("*.csv")) if synth.exists() else [],
             "checkpoint_files": len(list(ckpt.glob("*"))) if ckpt.exists() else 0,
             "log_txt_present": (dest / "log.txt").exists(),
@@ -221,7 +221,7 @@ def main() -> int:
         "reproduction_status": "EXECUTED" if proc.returncode == 0 else "FAILED",
         "failure_reason": _failure_reason(proc.stderr) if proc.returncode != 0 else None,
         "artifacts": harvested,
-        "console_log": str(console_log.relative_to(REPO_ROOT)),
+        "console_log": console_log.relative_to(REPO_ROOT).as_posix(),
     }
 
     out_json = summaries_dir / f"smoke_{key}.json"

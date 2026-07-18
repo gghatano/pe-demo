@@ -28,7 +28,7 @@
       "artificial-characters_composite_population"
     ],
     "artificial-characters_composite_population": {
-      "copied_to": "results\\raw\\artificial_characters\\artificial-characters_composite_population",
+      "copied_to": "results//raw//artificial_characters//artificial-characters_composite_population",
       "synthetic_csvs": 15,
       "checkpoint_files": 17,
       "log_txt_present": true,
@@ -47,5 +47,5 @@
       }
     }
   },
-  "console_log": "results\\logs\\experiment_artificial_characters_console.log"
+  "console_log": "results//logs//experiment_artificial_characters_console.log"
 }

@@ -40,7 +40,7 @@
     }
   },
   "artifacts": {
-    "log_relpath": "results\\raw\\scm_seeded\\scm_rff_seed0\\log.txt",
+    "log_relpath": "results//raw//scm_seeded//scm_rff_seed0//log.txt",
     "synthetic_csvs": 15,
     "checkpoint_files": 17
   }

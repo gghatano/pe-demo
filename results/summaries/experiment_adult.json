@@ -28,7 +28,7 @@
       "adult_composite_population"
     ],
     "adult_composite_population": {
-      "copied_to": "results\\raw\\adult\\adult_composite_population",
+      "copied_to": "results//raw//adult//adult_composite_population",
       "synthetic_csvs": 30,
       "checkpoint_files": 32,
       "log_txt_present": true,
@@ -48,5 +48,5 @@
       }
     }
   },
-  "console_log": "results\\logs\\experiment_adult_console.log"
+  "console_log": "results//logs//experiment_adult_console.log"
 }
