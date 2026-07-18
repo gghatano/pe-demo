@@ -60,7 +60,7 @@
     "capital-loss_pos_ratio_abs_diff": 0.5541973684210526
   },
   "artifacts": {
-    "log_relpath": "results\\raw\\adult_embedding\\adult_embedding_adult_semantic_seed0\\log.txt",
+    "log_relpath": "results//raw//adult_embedding//adult_embedding_adult_semantic_seed0//log.txt",
     "synthetic_csvs": 30,
     "checkpoint_files": 32
   }

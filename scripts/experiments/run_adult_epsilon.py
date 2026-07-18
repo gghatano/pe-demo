@@ -172,7 +172,7 @@ def main() -> int:
         "reproduction_status": "EXECUTED",
         "final_metrics": fm,
         "artifacts": {
-            "log_relpath": str((exp_folder / "log.txt").relative_to(REPO_ROOT)),
+            "log_relpath": (exp_folder / "log.txt").relative_to(REPO_ROOT).as_posix(),
             "synthetic_csvs": len(list((exp_folder / "synthetic_tab").glob("*.csv")))
                               if (exp_folder / "synthetic_tab").exists() else 0,
             "checkpoint_files": len(list((exp_folder / "checkpoint").glob("*")))

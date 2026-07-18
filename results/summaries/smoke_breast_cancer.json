@@ -27,7 +27,7 @@
       "breast-cancer_composite_population"
     ],
     "breast-cancer_composite_population": {
-      "copied_to": "results\\raw\\breast_cancer\\breast-cancer_composite_population",
+      "copied_to": "results//raw//breast_cancer//breast-cancer_composite_population",
       "synthetic_csvs": [
         "000000000.csv",
         "000000001.csv",
@@ -68,5 +68,5 @@
       }
     }
   },
-  "console_log": "results\\logs\\smoke_breast_cancer_console.log"
+  "console_log": "results//logs//smoke_breast_cancer_console.log"
 }

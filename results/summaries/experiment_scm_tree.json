@@ -28,7 +28,7 @@
       "scm_tree"
     ],
     "scm_tree": {
-      "copied_to": "results\\raw\\scm\\scm_tree",
+      "copied_to": "results//raw//scm//scm_tree",
       "synthetic_csvs": 15,
       "checkpoint_files": 17,
       "log_txt_present": true,
@@ -48,5 +48,5 @@
       }
     }
   },
-  "console_log": "results\\logs\\experiment_scm_tree_console.log"
+  "console_log": "results//logs//experiment_scm_tree_console.log"
 }

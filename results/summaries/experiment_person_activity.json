@@ -28,7 +28,7 @@
       "person-activity_composite_population"
     ],
     "person-activity_composite_population": {
-      "copied_to": "results\\raw\\person_activity\\person-activity_composite_population",
+      "copied_to": "results//raw//person_activity//person-activity_composite_population",
       "synthetic_csvs": 15,
       "checkpoint_files": 17,
       "log_txt_present": true,
@@ -47,5 +47,5 @@
       }
     }
   },
-  "console_log": "results\\logs\\experiment_person_activity_console.log"
+  "console_log": "results//logs//experiment_person_activity_console.log"
 }
