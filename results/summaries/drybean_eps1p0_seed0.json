@@ -1,0 +1,46 @@
+{
+  "experiment_name": "drybean_eps1p0_seed0",
+  "kind": "drybean",
+  "official_script_path": "n/a (new dataset via scripts/experiments/run_drybean.py)",
+  "deviation": "new dataset (UCI Dry Bean, multiclass); official TabularEmbedding + algorithm; seeded.",
+  "official_commit_sha": "9078c67995499e6769113780200bbf1d788d3d60",
+  "command": "python scripts/experiments/run_drybean.py --epsilon 1.0 --seed 0",
+  "epsilon": 1.0,
+  "classifier_model": "tabicl",
+  "seed": 0,
+  "python_version": "3.12.13",
+  "uv_lock_commit": "4410bb9c40dd7cc4ab77c018d850307e96f5c4ee",
+  "os": "Windows 11 (10.0.26200)",
+  "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+  "privacy_parameters": {
+    "epsilon": 1.0,
+    "delta": "1/n/ln(n)",
+    "mechanism": "Gaussian on NN histogram"
+  },
+  "dataset_name": "Dry Bean (real, multiclass)",
+  "dataset_source": "data/drybean/ (see manifest.json)",
+  "num_iterations": 30,
+  "num_samples": 1000,
+  "num_private_samples": 10888,
+  "started_at_utc": "2026-07-18T14:43:19.279317+00:00",
+  "runtime_seconds": 2544.75,
+  "reproduction_status": "EXECUTED",
+  "final_metrics": {
+    "classifier_test_acc": 90.08,
+    "classifier_test_f1": 91.14,
+    "wsd_1way": 0.0200045,
+    "wsd_2way": 0.04324105,
+    "wsd_3way": 0.070674,
+    "dp": {
+      "epsilon": 1.0,
+      "delta": 9.880593488651035e-06,
+      "noise_multiplier": 20.104597387633895,
+      "accounted_num_iterations": 29
+    }
+  },
+  "artifacts": {
+    "log_relpath": "results/raw/drybean/drybean_eps1p0_seed0/log.txt",
+    "synthetic_csvs": 30,
+    "checkpoint_files": 32
+  }
+}

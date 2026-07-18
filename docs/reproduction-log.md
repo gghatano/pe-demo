@@ -387,6 +387,28 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
   full-data (F1 66.7) is data-quantity/model, not DP. Reinforces "on imbalanced data,
   evaluate with macro F1 / AUC, not accuracy". `EXECUTED` (no official comparison).
 
+## 2026-07-19: Dry Bean new-dataset application (#55)
+
+- Second checklist (#25) application, chosen as a **multiclass** (7 bean varieties),
+  well-separated, roughly-balanced task (contrast with imbalanced binary Bank/Adult).
+  `scripts/datasets/drybean/preprocess.py` (download UCI xlsx via openpyxl, auto-split
+  numeric cols into int/float, stratified 80/20 on Class, metadata + manifest sha256;
+  CSVs gitignored), `scripts/experiments/run_drybean.py` (official TabularEmbedding,
+  seeded, ε arg, Adult config; tabicl handles multiclass directly),
+  `scripts/datasets/drybean/measure_ceiling.py` → `results/summaries/drybean_ceiling.json`
+  (multiclass macro-AUC ovr).
+- 13611 rows, 7 classes, majority DERMASON 26.04%. DP synthetic (ε=1, seed 0): acc
+  90.08, **macro F1 91.14**, WSD 0.020/0.043/0.071 (runtime ~42 min). Ceiling:
+  real-1000→real-test acc 91.37 / F1 92.64 / AUC 99.45; real-full xgboost acc 92.54 /
+  F1 93.68 / AUC 99.52.
+- **Finding**: DP synthetic **nearly matches the same-size ceiling** (acc gap ~1.3,
+  macro F1 gap ~1.5) — the smallest gap of any dataset so far — and WSD is the lowest
+  measured. Across the three datasets the gap to the same-size ceiling tracks task
+  separability: Dry Bean (separable balanced multiclass) ≈ matches, Bank (extreme
+  imbalance) matches macro F1 / trails AUC, Adult (overlapping imbalanced binary) ~4
+  acc below. Many classes (7) are not inherently harder — separability is what matters.
+  `EXECUTED` (no official comparison).
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.

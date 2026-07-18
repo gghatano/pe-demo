@@ -1,0 +1,2 @@
+iteration,test_acc,test_f1,wsd_1way,wsd_2way,wsd_3way
+0,75.77,43.11,0.27653421,0.45688274,0.60145932
