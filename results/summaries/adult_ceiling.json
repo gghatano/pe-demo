@@ -1,0 +1,21 @@
+{
+  "dataset": "Adult (real)",
+  "data_source": "https://raw.githubusercontent.com/toan-vt/cloud-data-store/refs/heads/main/tabular/real/adult (unpinned ref; see data-notes)",
+  "test_n": 7144,
+  "train_n_full": 33334,
+  "majority_baseline_acc": 75.77,
+  "real_subsample_tabicl": {
+    "acc": 84.01,
+    "macro_f1": 77.77,
+    "train_n": 1000,
+    "auc": 90.42
+  },
+  "real_full_xgboost": {
+    "acc": 86.44,
+    "macro_f1": 80.48,
+    "train_n": 33334,
+    "auc": 92.65
+  },
+  "subsample_n": 1000,
+  "seed": 0
+}

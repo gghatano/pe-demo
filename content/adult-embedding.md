@@ -50,10 +50,12 @@ one-hot、距離は L2）を使う。Adult 固有の性質——`capital-gain/lo
 
 *図 5: Adult 埋め込み variant 別の分類精度 mean±std（seed 0,1,2）。*
 
-参考として、同じテストセットでの上限を実測した。同サイズ実データ（実1000→実test、tabicl）は
-acc **84.01%** / macro F1 77.77、全量 xgboost は acc **86.44%** / macro F1 80.48。多数派
-ベースラインは 75.77%。→ 我々の DP 合成（acc ~80%、macro F1 ~70）は上限まで **accuracy で
-~4 点、macro F1 で ~7 点**の余地があるが、埋め込みの選択でその差はほとんど動かない。
+参考として、同じテストセットでの上限を実測した（`scripts/datasets/adult/measure_ceiling.py`、
+`results/summaries/adult_ceiling.json` に provenance を保存、#42）。同サイズ実データ
+（実1000→実test、tabicl）は acc **84.01%** / macro F1 77.77、全量 xgboost は acc **86.44%** /
+macro F1 80.48。多数派ベースラインは 75.77%。→ 我々の DP 合成（acc ~80%、macro F1 ~70）は
+上限まで **accuracy で ~4 点、macro F1 で ~7 点**の余地があるが、埋め込みの選択でその差は
+ほとんど動かない。
 
 `official`(79.89%) と `robust_numeric`(81.01%) の差は約 1.1 点で標準偏差（0.58〜1.30）と同程度で
 **有意ではない**。`adult_semantic`(77.78%) と `public_fe`(78.61%) はむしろ official を下回った。
