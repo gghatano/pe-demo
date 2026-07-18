@@ -1,4 +1,11 @@
-# Adult 埋め込みの精緻化（追加実験）
+# 追加分析：下流 utility のレバー（詳細）
+
+このページは要約レポート（[📄 レポート](index.html) §3）の詳細な裏付けである。Adult を軸に、
+(1) 埋め込みの精緻化、(2) 下流の実測上限、(3) ε スイープ、(4) 「なぜ埋め込みが効かないか」の
+診断、を順に示す。結論は「utility のレバーは埋め込みではなく ε、ただし ε も頭打ち」で、
+その根拠がここにある。
+
+## 埋め込みの精緻化
 
 公式 Adult デモは既定の `TabularEmbedding`（数値は metadata の min-max、カテゴリは
 one-hot、距離は L2）を使う。Adult 固有の性質——`capital-gain/loss` のゼロ集中、
@@ -157,20 +164,32 @@ official（デフォルト）が優勢**。ε=1 で robust がわずかに良く
 幾何がむしろ選択を悪くしていると考えられる。→ 埋め込みは utility のレバーでない、が一層強まった。
 
 **診断（なぜ robust が悪いのか）**: 「capital のバイナリ presence 次元が幾何を支配している」という
-仮説を、`capital_presence_weight=0`（presence 次元を無効化）で ε=∞ を回して切り分けた。
+仮説を、capital の重みを段階的に落として ε=∞ で切り分けた（`--capital-presence-weight` /
+`--capital-amount-weight`）。
 
 | ε=∞ の埋め込み | acc | macro F1 | AUC | WSD 1/2/3 |
 |---|---|---|---|---|
 | official | 82.47 | 72.79 | 87.46 | 0.025/0.045/0.065 |
-| robust | 77.63 | 63.30 | 79.13 | 0.037/0.072/0.107 |
-| robust（presence=0） | **80.94** | **72.15** | 82.42 | 0.031/0.060/0.089 |
+| robust（全部） | 77.63 | 63.30 | 79.13 | 0.037/0.072/0.107 |
+| robust（presence=0） | 80.94 | 72.15 | 82.42 | 0.031/0.060/0.089 |
+| robust（capital=0：presence＋amount 0） | 80.98 | 73.32 | 84.12 | 0.134/0.254/0.366 |
 
-presence 次元を消すだけで acc は 77.6→80.9（差の約 2/3 を回復）、macro F1 は 63.3→72.2（official と
-ほぼ同水準まで回復）、WSD も official 方向へ改善した。→ **capital のバイナリ presence 次元が主犯**で、
-10% の capital 保有者を空間上で強く隔離し、最近傍マッチをそこに支配させて他の列を潰していた。
-ただし presence=0 でも official に ~1.5 点届かない（AUC は依然 5 点差）。残差は fnlwgt の log 圧縮と
-capital の log 量表現という**より小さな逸脱**が担う。plain な min-max（評価空間と一致）から離れる工夫
-ほど utility を損なう、という読みと整合する。
+分解すると:
+
+- **presence 次元が accuracy の主犯**。消すだけで acc 77.6→80.9（差の約 2/3 を回復）、macro F1 は
+  official 並みに戻る。10% の capital 保有者を空間上で強く隔離し、最近傍マッチをそこに支配させて
+  他の列を潰していた。amount も消しても acc はほぼ不変（80.9→81.0）。
+- **amount（capital の log 量）は AUC を下げていた**。消すと AUC 82.4→84.1 と一段回復。
+- **capital を完全に外すと accuracy は保つが、capital の marginal 忠実度が崩れる**（WSD が
+  0.03→**0.13** に悪化）。埋め込みが capital を見ないと、生成される capital 値が実分布から自由に
+  離れるため。→ official が capital を min-max で**薄く**使うのは、accuracy を落とさずに capital を
+  そこそこ合わせる**バランス点**だった。過大（robust）でも無視（capital=0）でも WSD は悪化する。
+- **残差 ~1.5 acc / ~3.3 AUC**（capital=0 でも official に届かない分）は、robust に残る唯一の違い＝
+  fnlwgt の log 圧縮（＋official が薄く使う capital 信号を失った分）が担う。
+
+要するに、**plain な min-max（評価空間と一致）から離れる工夫はどれも代償を伴う**。presence 次元は
+最大の逸脱なので accuracy への害が最も大きく、log 量は AUC を、capital 除去は忠実度を、fnlwgt 圧縮は
+残差を、それぞれ削っていた。
 
 ## 総括
 
@@ -189,8 +208,7 @@ capital の log 量表現という**より小さな逸脱**が担う。plain な
   スケールだけ直し、他は落とさない）が 4 variant 中で **ε=1 では**最良だったのはこのためと解釈
   できる（ただし高 ε では official が勝つ。上記 #40）。
   列を埋め込みから外すと（`public_fe` の education、`adult_semantic` の education one-hot）、
-  その列の同時整合が壊れる副作用も出る。強い主張はしないが、単一指標ではなく utility・fidelity・
-  一貫性の trade-off として読むべき結果である。
+  その列の同時整合が壊れる副作用も出る。
 
 強い主張はしない。単一指標での優劣ではなく、utility・fidelity・意味的一貫性の trade-off として
 読むべき結果である。tabicl が強力なため、埋め込みの改良が下流精度に表れにくい可能性も残る

@@ -351,6 +351,25 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
   smaller warp from the fnlwgt log-downweight and capital log-amount. Consistent with
   "departing from the plain min-max (evaluation-aligned) space costs utility."
 
+## 2026-07-18: capital-weight decomposition + report restructure
+
+- Extended the presence diagnostic (added `--capital-amount-weight`). At ε=∞, seed 0:
+  official 82.47/72.79/87.46; robust 77.63/63.30/79.13; presence=0 80.94/72.15/82.42;
+  capital=0 (presence+amount) 80.98/73.32/84.12 but WSD blows up (0.031→**0.134**).
+  Decomposition: **presence dim = accuracy's main culprit** (removing it recovers ~2/3
+  of the acc gap; F1 back to official); the **log-amount hurt AUC** (82.4→84.1);
+  **removing capital entirely keeps accuracy but wrecks capital marginal fidelity**
+  (WSD 0.03→0.13) — official's light min-max capital is the balance point; the **residual
+  ~1.5 acc / ~3.3 AUC is the fnlwgt log-downweight**. Every departure from plain min-max
+  costs something.
+- **Report restructured** (lab-discussion technical report): `content/index.md` is now a
+  concise executive summary (要旨 + Q1 reproduction + Q2 utility-lever investigation + gap
+  decomposition + consolidated 知見), with details in the supplement tabs (🧬 追加分析 =
+  renamed adult-embedding, 📈 詳細結果, 🧪 実験, …). An independent review agent's findings
+  were incorporated (ε-conditioning of the "min-max is best" claim, number-config note for
+  the three ε=1 Adult accuracies, surfacing the classifier-FE-vs-distance-FE lesson,
+  dedup, precision fixes). Hero title updated.
+
 ## Deferred (follow-up)
 
 - fnlwgt-excluded classifier as an extra H3 check (optional; #24 core done) — #33.
