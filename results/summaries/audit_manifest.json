@@ -1,0 +1,749 @@
+{
+  "note": "SHA-256 pins the integrity of our locally-stored logs; results/raw and results/logs are gitignored. Reproduce a number by re-running `command` and comparing parsed metrics (logs carry timestamps, so they are not byte-identical). See docs/engineering-notes.md.",
+  "totals": {
+    "summaries": 50,
+    "logs_present": 50,
+    "metrics_checked": 47,
+    "metrics_matched": 47
+  },
+  "entries": [
+    {
+      "summary": "results/summaries/adult_embedding_adult_semantic_seed0.json",
+      "experiment_name": "adult_embedding_adult_semantic_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant adult_semantic --seed 0 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_adult_semantic_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "bc68b456c864fd510a96a088757f8a6f044f3880f97e39105a4219499747784a",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_adult_semantic_seed1.json",
+      "experiment_name": "adult_embedding_adult_semantic_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant adult_semantic --seed 1 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_adult_semantic_seed1/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "46257cee42a181f0cb17a804b178afc25d4470101f77fdc24b99cf8c4815a776",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_adult_semantic_seed2.json",
+      "experiment_name": "adult_embedding_adult_semantic_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant adult_semantic --seed 2 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_adult_semantic_seed2/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "a11db9873efc4f84d41854de3d85dc5d1d06bf0e3367f01c8bdd3abcaa53952a",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_official_seed0.json",
+      "experiment_name": "adult_embedding_official_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant official --seed 0 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_official_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "fe2ecd7563fb204d2efcfcc6ef5414e2abcf0b06ed151a332e992faf6336a8a9",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_official_seed1.json",
+      "experiment_name": "adult_embedding_official_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant official --seed 1 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_official_seed1/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "9d0e0847c7daa997395e6e65e865a96e856d8b3695574a6d79b6e681ab5abc64",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_official_seed2.json",
+      "experiment_name": "adult_embedding_official_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant official --seed 2 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_official_seed2/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "29fd521dd492c5274a31175bda9a8553d7d52d59cea57bd2f52169bb5d3250a4",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_public_fe_seed0.json",
+      "experiment_name": "adult_embedding_public_fe_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant public_fe --seed 0 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_public_fe_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "14ab7ae3b3777efc91c853e41e73792c73d020ed9130ececbcafd52fd33594f6",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_public_fe_seed1.json",
+      "experiment_name": "adult_embedding_public_fe_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant public_fe --seed 1 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_public_fe_seed1/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "23a759f7cbf4b8631910fdeaec0fa674c6b6add7d7087f80bb53ecf90404a097",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_public_fe_seed2.json",
+      "experiment_name": "adult_embedding_public_fe_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant public_fe --seed 2 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_public_fe_seed2/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "73b38217e2feb885329c61303e7582640d8d3b8eb6fc6c45617c89071bc616b7",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_robust_numeric_seed0.json",
+      "experiment_name": "adult_embedding_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant robust_numeric --seed 0 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "b668f5fea7e459f63d68e660de2d417ae340841dd2f2d1f4d5651c470b188e65",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_robust_numeric_seed1.json",
+      "experiment_name": "adult_embedding_robust_numeric_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant robust_numeric --seed 1 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_robust_numeric_seed1/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "0f386b7bd13f4a3c0f793ed329ae4fb90b4af0d628ae28639cd23e76ef2c0852",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_embedding_robust_numeric_seed2.json",
+      "experiment_name": "adult_embedding_robust_numeric_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_embedding.py --variant robust_numeric --seed 2 --num-iterations 30",
+      "log": "results/raw/adult_embedding/adult_embedding_robust_numeric_seed2/log.txt",
+      "present": true,
+      "size_bytes": 152747,
+      "sha256": "1b80b61e9e94318a7efd7e23925d8d26f36a819ba1ef7f89b7f40dad37247abd",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps0p5_robust_numeric_seed0.json",
+      "experiment_name": "adult_eps0p5_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 0.5 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps0p5_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152903,
+      "sha256": "21f07d2bde1c1a0521f38a6f2ce14b7b0bdbcb7456a4c9aaf0aa27c006c9d9a1",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps0p5_seed0.json",
+      "experiment_name": "adult_eps0p5_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 0.5 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps0p5_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172007,
+      "sha256": "2ed573c42048f0d32841166d6e2c0735a2dd88c1ca11be7e0ce7e45013bf584a",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps1p0_robust_numeric_seed0.json",
+      "experiment_name": "adult_eps1p0_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 1.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps1p0_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152903,
+      "sha256": "6502f54536c090894c86cf7a275cd8b84a0f64a8be83a7cffe2fe30ca25058d8",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps1p0_seed0.json",
+      "experiment_name": "adult_eps1p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 1.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps1p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172007,
+      "sha256": "7eb604776184756ce932196eecc017cdc525be0faf1f7f99f92eb1ef0c5a3b08",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps2p0_robust_numeric_seed0.json",
+      "experiment_name": "adult_eps2p0_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 2.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps2p0_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152903,
+      "sha256": "18c532e3ee312aa68df4fcecb326382010b4ad72811aa26edcc15ae6b420a64f",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps2p0_seed0.json",
+      "experiment_name": "adult_eps2p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 2.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps2p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172007,
+      "sha256": "5cf0ae0c83495b58aa193d9d6ba2d11f6aa622e7ca8298ef1fe1902be3b17626",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps4p0_robust_numeric_seed0.json",
+      "experiment_name": "adult_eps4p0_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 4.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps4p0_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152902,
+      "sha256": "4f273ed640163f6ee707ff8d5a59afad71bfab2f5915d6e500b9e95b7688af93",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps4p0_seed0.json",
+      "experiment_name": "adult_eps4p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 4.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps4p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172006,
+      "sha256": "9005fd5432974049da10693ad2b79387617b52960825f821008eaaba6ae48952",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps8p0_robust_numeric_seed0.json",
+      "experiment_name": "adult_eps8p0_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 8.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps8p0_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152903,
+      "sha256": "fb6f972ee37fd5a6d8508250d24360cd48a227d15cc215c3e1c0fb8e0fccffb5",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_eps8p0_seed0.json",
+      "experiment_name": "adult_eps8p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon 8.0 --seed 0",
+      "log": "results/raw/adult_eps/adult_eps8p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172007,
+      "sha256": "885475f0e679dbe5700ed11ab1383be3ff3fe2a330a45de31adb337d7690240e",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_epsinf_robust_numeric_cpw0p0_caw0p0_seed0.json",
+      "experiment_name": "adult_epsinf_robust_numeric_cpw0p0_caw0p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon inf --seed 0",
+      "log": "results/raw/adult_eps/adult_epsinf_robust_numeric_cpw0p0_caw0p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152888,
+      "sha256": "db5d7c1dae6980c0c7024a5cce887fcdc77816bf719cb4f6256b24a3b7a93bda",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_epsinf_robust_numeric_cpw0p0_seed0.json",
+      "experiment_name": "adult_epsinf_robust_numeric_cpw0p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon inf --seed 0",
+      "log": "results/raw/adult_eps/adult_epsinf_robust_numeric_cpw0p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152888,
+      "sha256": "9717e5ef51886ca450740893a298cf4644b710e6123d4d5998a9f95f6c40ab62",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_epsinf_robust_numeric_seed0.json",
+      "experiment_name": "adult_epsinf_robust_numeric_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon inf --seed 0",
+      "log": "results/raw/adult_eps/adult_epsinf_robust_numeric_seed0/log.txt",
+      "present": true,
+      "size_bytes": 152888,
+      "sha256": "02c847e3669e47f86c942df7bd7b33ccce0382f4c87030f64955a7d7d9e030e4",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/adult_epsinf_seed0.json",
+      "experiment_name": "adult_epsinf_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_adult_epsilon.py --epsilon inf --seed 0",
+      "log": "results/raw/adult_eps/adult_epsinf_seed0/log.txt",
+      "present": true,
+      "size_bytes": 171992,
+      "sha256": "43bac437baf87536652b7c9e9df67424bdee1f92418ed70704d1fb31422fafc9",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/bank_eps1p0_seed0.json",
+      "experiment_name": "bank_eps1p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_bank.py --epsilon 1.0 --seed 0",
+      "log": "results/raw/bank/bank_eps1p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 171923,
+      "sha256": "48c4217920eff910798bb0c2bb5c1d5d7a72ce93fdd2ff35373096d8df6d6565",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/drybean_eps1p0_seed0.json",
+      "experiment_name": "drybean_eps1p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_drybean.py --epsilon 1.0 --seed 0",
+      "log": "results/raw/drybean/drybean_eps1p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 396937,
+      "sha256": "1d72179e06000f5c66b9d95add44de08baa875bb5a7bbf759e4c33e36a33353e",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_adult.json",
+      "experiment_name": "adult",
+      "reproduction_status": "EXECUTED",
+      "command": "python adult.py",
+      "log": "results/logs/experiment_adult_console.log",
+      "present": true,
+      "size_bytes": 172615,
+      "sha256": "e43122f2244832c57f41b549fa9d6188ece21a7bebe8e46a0b050f31d30bcf44",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_artificial_characters.json",
+      "experiment_name": "artificial_characters",
+      "reproduction_status": "EXECUTED",
+      "command": "python artificial_characters.py",
+      "log": "results/logs/experiment_artificial_characters_console.log",
+      "present": true,
+      "size_bytes": 253804,
+      "sha256": "2b3836243335a58c612eb48791cef09b78a0fcb3a0977e5add4a5470eb57b20f",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_person_activity.json",
+      "experiment_name": "person_activity",
+      "reproduction_status": "EXECUTED",
+      "command": "python person_activity.py",
+      "log": "results/logs/experiment_person_activity_console.log",
+      "present": true,
+      "size_bytes": 276784,
+      "sha256": "c4a9307e4e2fb3458cd51672b33d023d4296d82774c62c0f4dd6cfa54ee52c22",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_scm_nn.json",
+      "experiment_name": "scm_nn",
+      "reproduction_status": "EXECUTED",
+      "command": "python scm.py --prior-function nn",
+      "log": "results/logs/experiment_scm_nn_console.log",
+      "present": true,
+      "size_bytes": 81872,
+      "sha256": "00554beceadd47b610a7ff53d649a1fa7ad00b41653c74d28d77e49400ebff9b",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_scm_rff.json",
+      "experiment_name": "scm_rff",
+      "reproduction_status": "EXECUTED",
+      "command": "python scm.py --prior-function rff",
+      "log": "results/logs/experiment_scm_rff_console.log",
+      "present": true,
+      "size_bytes": 81873,
+      "sha256": "6207403abf127a7984a427a278a36867acbb98501be31b008024cf8905ea6174",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/experiment_scm_tree.json",
+      "experiment_name": "scm_tree",
+      "reproduction_status": "EXECUTED",
+      "command": "python scm.py --prior-function tree",
+      "log": "results/logs/experiment_scm_tree_console.log",
+      "present": true,
+      "size_bytes": 81874,
+      "sha256": "a03da72e8a497492e94e9ecb489c56a92797c1944992f7ab16f1a2b5931fd2f6",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_nn_seed0.json",
+      "experiment_name": "scm_nn_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function nn --seed 0 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_nn_seed0/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "e059e06b94e1773b800aabc2278ac4b8ea87e97d672a71570236413846b0337d",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_nn_seed1.json",
+      "experiment_name": "scm_nn_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function nn --seed 1 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_nn_seed1/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "b59b0afa0e7a0474a24b65bc5ae6fbf6f347ef591268ff0a80f8290c4c3dba52",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_nn_seed2.json",
+      "experiment_name": "scm_nn_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function nn --seed 2 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_nn_seed2/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "806694aca749bde9017dbe90dc4821b16abd58b4f3917b52b6becd274e374bed",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_rff_seed0.json",
+      "experiment_name": "scm_rff_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function rff --seed 0 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_rff_seed0/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "aa39364dd7943ca2e5b181e68ce7adb0f5cb9725e97e086927ad60c024dfbd7b",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_rff_seed1.json",
+      "experiment_name": "scm_rff_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function rff --seed 1 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_rff_seed1/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "e4910398e6dae031600064b06225899aec6a81111742ae4178f47215c83adb9f",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_rff_seed2.json",
+      "experiment_name": "scm_rff_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function rff --seed 2 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_rff_seed2/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "22e0047a268f1b76653c42fb3bf5b835efdc5518c1b31a36768e1c01390d7f01",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_tree_seed0.json",
+      "experiment_name": "scm_tree_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function tree --seed 0 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_tree_seed0/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "bf220e599013cfcfeab0f1bddd6b3634a50862468fdb8823396e1c3d91073955",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_tree_seed1.json",
+      "experiment_name": "scm_tree_seed1",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function tree --seed 1 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_tree_seed1/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "5f57124145dae9faa1651c9a4c40a8bfa4b50263c703e7ce81e2a03cb1a6fa19",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/scm_tree_seed2.json",
+      "experiment_name": "scm_tree_seed2",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_scm_seeded.py --prior-function tree --seed 2 --num-iterations 15",
+      "log": "results/raw/scm_seeded/scm_tree_seed2/log.txt",
+      "present": true,
+      "size_bytes": 81249,
+      "sha256": "0ff2c8c5a68cf9b207a6a2c8bbd4d8e8a3f40ee5fa313fc506db8a26d86a29c1",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/smoke_breast_cancer.json",
+      "experiment_name": "breast_cancer",
+      "reproduction_status": "EXECUTED",
+      "command": "python breast_cancer.py",
+      "log": "results/logs/smoke_breast_cancer_console.log",
+      "present": true,
+      "size_bytes": 111322,
+      "sha256": "7bfc2eb00a89dd54325cec3dd5447316a28e7026f23b2d3f32ac278adf6c8181",
+      "metric_check": {
+        "against": "experiments.json",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/smoke_xor_stress_test.json",
+      "experiment_name": "xor_stress_test",
+      "reproduction_status": "FAILED",
+      "command": "python xor_stress_test.py --num-features 1",
+      "log": "results/logs/smoke_xor_stress_test_console.log",
+      "present": true,
+      "size_bytes": 5571,
+      "sha256": "98b1ea5a6e428a23b9528a0acef49cc45ce2f60fd83c153a9dd6bcb291771b26",
+      "metric_check": null
+    },
+    {
+      "summary": "results/summaries/xor_clf_1f_tabicl.json",
+      "experiment_name": "xor_stress_test_1_features_tabicl",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/xor_with_classifier.py --num-features 1 --classifier tabicl",
+      "log": "results/raw/xor_clf/xor_stress_test_1_features_tabicl/log.txt",
+      "present": true,
+      "size_bytes": 84529,
+      "sha256": "3e9a1f53b7c2ae29427a6b6de83a90e59baae8330e9074e2671a4f4057224946",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/xor_clf_2f_tabicl.json",
+      "experiment_name": "xor_stress_test_2_features_tabicl",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/xor_with_classifier.py --num-features 2 --classifier tabicl",
+      "log": "results/raw/xor_clf/xor_stress_test_2_features_tabicl/log.txt",
+      "present": true,
+      "size_bytes": 84495,
+      "sha256": "7dd642a71e5d7b073f46f379ec3a00300f303e8b7c9fc322b1d515933319cbec",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/xor_clf_3f_tabicl.json",
+      "experiment_name": "xor_stress_test_3_features_tabicl",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/xor_with_classifier.py --num-features 3 --classifier tabicl",
+      "log": "results/raw/xor_clf/xor_stress_test_3_features_tabicl/log.txt",
+      "present": true,
+      "size_bytes": 84495,
+      "sha256": "e51419cb4b797e8aa8ddafb395860d8576e434f4c9643f3fc16e8fd04c85e482",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/xor_xor_stress_test_1_features.json",
+      "experiment_name": "xor_stress_test_1_features",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/xor_no_classifier.py --num-features 1",
+      "log": "results/raw/xor/xor_stress_test_1_features/log.txt",
+      "present": true,
+      "size_bytes": 70091,
+      "sha256": "3bfd5fbe9c55f506f0e627c4b6bdf6bca86aa102694859ecbf0645e006f26ccc",
+      "metric_check": null
+    },
+    {
+      "summary": "results/summaries/xor_xor_stress_test_2_features.json",
+      "experiment_name": "xor_stress_test_2_features",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/xor_no_classifier.py --num-features 2",
+      "log": "results/raw/xor/xor_stress_test_2_features/log.txt",
+      "present": true,
+      "size_bytes": 68085,
+      "sha256": "dad5e2c905d7f636306bc366cc71f525638b3ca200f184c8665a87ec009a7204",
+      "metric_check": null
+    }
+  ]
+}

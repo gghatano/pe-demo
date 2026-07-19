@@ -35,7 +35,7 @@
     }
   },
   "artifacts": {
-    "log_relpath": "results//raw//xor_clf//xor_stress_test_3_features_tabicl//log.txt",
+    "log_relpath": "results/raw/xor_clf/xor_stress_test_3_features_tabicl/log.txt",
     "synthetic_csvs": 20,
     "checkpoint_files": 22
   }

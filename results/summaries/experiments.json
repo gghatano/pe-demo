@@ -13,7 +13,7 @@
     "epsilon": 1.0,
     "delta": 2.8805876962760987e-06,
     "notes": "",
-    "_source_json": "results//summaries//experiment_adult.json"
+    "_source_json": "results/summaries/experiment_adult.json"
   },
   {
     "experiment": "artificial_characters",
@@ -29,7 +29,7 @@
     "epsilon": 1.0,
     "delta": 1.575422064457033e-05,
     "notes": "",
-    "_source_json": "results//summaries//experiment_artificial_characters.json"
+    "_source_json": "results/summaries/experiment_artificial_characters.json"
   },
   {
     "experiment": "breast_cancer",
@@ -45,7 +45,7 @@
     "epsilon": 1.0,
     "delta": 0.00041970816968923,
     "notes": "",
-    "_source_json": "results//summaries//smoke_breast_cancer.json"
+    "_source_json": "results/summaries/smoke_breast_cancer.json"
   },
   {
     "experiment": "person_activity",
@@ -61,7 +61,7 @@
     "epsilon": 1.0,
     "delta": 7.434136520415307e-07,
     "notes": "",
-    "_source_json": "results//summaries//experiment_person_activity.json"
+    "_source_json": "results/summaries/experiment_person_activity.json"
   },
   {
     "experiment": "scm_nn",
@@ -77,7 +77,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "",
-    "_source_json": "results//summaries//experiment_scm_nn.json"
+    "_source_json": "results/summaries/experiment_scm_nn.json"
   },
   {
     "experiment": "scm_rff",
@@ -93,7 +93,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "",
-    "_source_json": "results//summaries//experiment_scm_rff.json"
+    "_source_json": "results/summaries/experiment_scm_rff.json"
   },
   {
     "experiment": "scm_tree",
@@ -109,7 +109,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "",
-    "_source_json": "results//summaries//experiment_scm_tree.json"
+    "_source_json": "results/summaries/experiment_scm_tree.json"
   },
   {
     "experiment": "xor_stress_test_1_features",
@@ -125,7 +125,7 @@
     "epsilon": 1.0,
     "delta": "1/n/ln(n)",
     "notes": "classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) | deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged.",
-    "_source_json": "results//summaries//xor_xor_stress_test_1_features.json"
+    "_source_json": "results/summaries/xor_xor_stress_test_1_features.json"
   },
   {
     "experiment": "xor_stress_test_1_features_tabicl",
@@ -141,7 +141,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
-    "_source_json": "results//summaries//xor_clf_1f_tabicl.json"
+    "_source_json": "results/summaries/xor_clf_1f_tabicl.json"
   },
   {
     "experiment": "xor_stress_test_2_features",
@@ -157,7 +157,7 @@
     "epsilon": 1.0,
     "delta": "1/n/ln(n)",
     "notes": "classifier: NOT_RUN (tabpfn requires interactive license/TABPFN_TOKEN) | deviation: TabClassifier(model_name='tabpfn') removed; generation/DP unchanged.",
-    "_source_json": "results//summaries//xor_xor_stress_test_2_features.json"
+    "_source_json": "results/summaries/xor_xor_stress_test_2_features.json"
   },
   {
     "experiment": "xor_stress_test_2_features_tabicl",
@@ -173,7 +173,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
-    "_source_json": "results//summaries//xor_clf_2f_tabicl.json"
+    "_source_json": "results/summaries/xor_clf_2f_tabicl.json"
   },
   {
     "experiment": "xor_stress_test_3_features_tabicl",
@@ -189,7 +189,7 @@
     "epsilon": 1.0,
     "delta": 2.730683970301006e-06,
     "notes": "deviation: classifier tabpfn -> tabicl (tabpfn is license-gated); generation/DP unchanged.",
-    "_source_json": "results//summaries//xor_clf_3f_tabicl.json"
+    "_source_json": "results/summaries/xor_clf_3f_tabicl.json"
   },
   {
     "experiment": "xor_stress_test",
@@ -205,6 +205,6 @@
     "epsilon": 1.0,
     "delta": "1/n/ln(n)",
     "notes": "tabpfn.errors.TabPFNLicenseError: TabPFN requires a one-time license acceptance to download",
-    "_source_json": "results//summaries//smoke_xor_stress_test.json"
+    "_source_json": "results/summaries/smoke_xor_stress_test.json"
   }
 ]
