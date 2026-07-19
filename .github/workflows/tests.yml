@@ -1,0 +1,39 @@
+name: Tests
+
+# レポート数値パイプライン（ログ解析・反復抽出・追跡 JSON の strict 妥当性/POSIX パス）の
+# 回帰テスト。tests/test_report_pipeline.py は pe 等の重い依存を import しないため、
+# uv の --no-project --with pytest で数秒で回る（experiments は実行しない）。
+# tests/test_adult_embedding.py は private-evolution が必要なためここでは対象外。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "results/summaries/**"
+      - "tests/test_report_pipeline.py"
+      - ".github/workflows/tests.yml"
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "results/summaries/**"
+      - "tests/test_report_pipeline.py"
+      - ".github/workflows/tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Run report-pipeline tests
+        run: >-
+          uv run --no-project --with pytest
+          python -m pytest tests/test_report_pipeline.py -q
