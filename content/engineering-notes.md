@@ -74,3 +74,27 @@ git -C external/DPSDA checkout 9078c67995499e6769113780200bbf1d788d3d60
 - PE 生成自体はシードされず**非決定的**。WSD のサンプリングのみ `seed=42`。
 - 各反復で `checkpoint/` にチェックポイントを保存し、`checkpoint_path` から再開可能。
   再開時の privacy accounting の扱いは **UNCONFIRMED**。
+
+## 結果の監査（元ログへの追跡、#19）
+
+公開している数値は `results/summaries/*.json` と、そこから集計した `experiments.json` に由来する。
+一方、根拠となる元ログ・合成 CSV・checkpoint は容量のため `.gitignore` 対象（`results/raw/`,
+`results/logs/`, `results/synthetic/`, `results/checkpoints/`, `results/figures/`）で、clean clone
+直後には存在しない。この追跡性を `scripts/audit_results.py` で担保する。
+
+```bash
+uv run python scripts/audit_results.py            # 監査マニフェストを生成
+uv run python scripts/audit_results.py --verify   # 完全性を検査（不一致で非ゼロ終了）
+```
+
+- 生成すると `results/summaries/audit_manifest.json`（追跡対象）に、各サマリごとの元ログパス・
+  サイズ・**SHA-256**・生成コマンド・再現判定・指標照合結果を記録する。
+- 指標照合：ログを `parse_final_metrics` で再解析し、サマリの `final_metrics`（新ランナー）または
+  `experiments.json` の公開行（console ログ実行の Adult/Breast Cancer 等）と一致するか検査する。
+  現状 **47/47 が一致**（Adult・Breast Cancer・SCM 3 prior・Person Activity を含む）。
+- `--verify` はローカルにログがある前提で、SHA-256 と指標の不一致を検出する（CI では `results/raw`
+  が無いため未実行）。ログが欠落しているエントリは、マニフェストの `command` を再実行して再生成する。
+  ログはタイムスタンプを含むためバイト一致はしない：第三者検証は「コマンド再実行 → 解析指標の突合」
+  で行い、SHA-256 は当方が保存したログの完全性を固定する用途である。
+- 非 Git 管理の成果物（大容量）の理由・保存場所・再生成手順は上記のとおり。合成 CSV・checkpoint は
+  各サマリの `command`（seed 付き）で再生成できる。

@@ -28,7 +28,7 @@
       "scm_rff"
     ],
     "scm_rff": {
-      "copied_to": "results//raw//scm//scm_rff",
+      "copied_to": "results/raw/scm/scm_rff",
       "synthetic_csvs": 15,
       "checkpoint_files": 17,
       "log_txt_present": true,
@@ -48,5 +48,5 @@
       }
     }
   },
-  "console_log": "results//logs//experiment_scm_rff_console.log"
+  "console_log": "results/logs/experiment_scm_rff_console.log"
 }

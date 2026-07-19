@@ -26,5 +26,5 @@
   "artifacts": {
     "experiment_folders": []
   },
-  "console_log": "results//logs//smoke_xor_stress_test_console.log"
+  "console_log": "results/logs/smoke_xor_stress_test_console.log"
 }
