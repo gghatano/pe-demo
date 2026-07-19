@@ -418,7 +418,10 @@ Decision (from the user): implement #24's code first; defer the full 3-variant �
 - XOR with the official `tabpfn` classifier (needs `TABPFN_TOKEN`) — #21 done via
   a tabicl deviation; the verbatim-official run remains open.
 - Trace results to source logs / audit — #19.
-- Comparison against official published numbers → `REPRODUCED` — #20.
+- ~~Comparison against official published numbers → `REPRODUCED` — #20.~~ Resolved:
+  no official per-demo numbers are published (repo README nor paper abstract), so a
+  numeric `REPRODUCED` is not warranted; framework, tolerances, and mapping table in
+  [reproduction-criteria.md](reproduction-criteria.md). All remain `EXECUTED`.
 - Seed control + multiple trials for stability (mean±std) — #22.
 
 ## Pending decisions

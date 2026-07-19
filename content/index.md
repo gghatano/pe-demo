@@ -105,7 +105,10 @@ PE ε=1（既定）               80.7%
 
 ## 5. 制約と再現性
 
-- 公式公表値と比較していないため、すべて `EXECUTED`。`REPRODUCED` の実験はない（[🧪 実験](experiments.html)）。
+- すべて `EXECUTED`、`REPRODUCED` の実験はない。これは基準に基づく判断で、公式リポジトリは
+  デモの期待値を公表しておらず、論文要旨も本デモ別の数値を示さないため、数値比較に基づく
+  `REPRODUCED` を根拠づけられない（判定基準・対応表・許容差は
+  [reproduction-criteria](https://github.com/gghatano/pe-demo/blob/main/docs/reproduction-criteria.md)、#20）。
 - 再現の一部（追加実験）は単一 seed で、run 間の揺れは限定的にしか測っていない。SCM のみ 3 seed。
 - XOR の公式分類器 `tabpfn` はライセンス（要 `TABPFN_TOKEN`）のため未使用（`NOT_RUN`）。分類評価は
   `tabicl` に差し替えた deviation。埋め込み・ε の追加実験も公式条件からの明示的な変更である。
