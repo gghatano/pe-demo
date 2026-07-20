@@ -97,11 +97,12 @@ PE ε=1（既定）               80.7%
 4. データ特性の知見：SCM は prior で下流精度が大差だが seed に対し安定。不均衡データ（Adult・
    Person Activity）は accuracy と macro F1 が乖離し、少数クラスの再現が弱い。XOR は次数が上がる
    ほど再現が難しくなる。
-5. **別データでの確認（Bank・Dry Bean、#49/#55）**：公式デモ外のデータに [チェックリスト](https://github.com/gghatano/pe-demo/blob/main/docs/guides/new-dataset-checklist.md)（#25）を
+5. **別データでの確認（Bank・Dry Bean・Credit、#49/#55/#50）**：公式デモ外のデータに [チェックリスト](https://github.com/gghatano/pe-demo/blob/main/docs/guides/new-dataset-checklist.md)（#25）を
    適用。**同サイズ上限との差はタスクの分離しやすさで決まる**：Dry Bean（均衡・分離しやすい 7 クラス）
    は DP 合成が上限にほぼ一致（acc 90.1 vs 91.4）、Bank（88% 多数派の二値）は accuracy が無意味で
-   macro F1 は一致・AUC のみ ~4 点下、Adult（重なる不均衡二値）は acc で ~4 点下。**不均衡データは
-   accuracy でなく macro F1・AUC で評価すべき**（[📈 詳細結果](results-detail.html)）。
+   macro F1 は一致・AUC のみ ~4 点下、Adult・Credit（重なる不均衡二値）は意味のある指標（macro F1・
+   AUC）でも ~4〜6 点下。**不均衡データは accuracy でなく macro F1・AUC で評価すべき**
+   （[📈 詳細結果](results-detail.html)）。
 
 ## 5. 制約と再現性
 
