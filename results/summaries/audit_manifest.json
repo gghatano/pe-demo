@@ -1,10 +1,10 @@
 {
   "note": "SHA-256 pins the integrity of our locally-stored logs; results/raw and results/logs are gitignored. Reproduce a number by re-running `command` and comparing parsed metrics (logs carry timestamps, so they are not byte-identical). See docs/engineering-notes.md.",
   "totals": {
-    "summaries": 50,
-    "logs_present": 50,
-    "metrics_checked": 47,
-    "metrics_matched": 47
+    "summaries": 51,
+    "logs_present": 51,
+    "metrics_checked": 48,
+    "metrics_matched": 48
   },
   "entries": [
     {
@@ -406,6 +406,21 @@
       "present": true,
       "size_bytes": 171923,
       "sha256": "48c4217920eff910798bb0c2bb5c1d5d7a72ce93fdd2ff35373096d8df6d6565",
+      "metric_check": {
+        "against": "summary.final_metrics",
+        "match": true,
+        "mismatched_keys": []
+      }
+    },
+    {
+      "summary": "results/summaries/credit_eps1p0_seed0.json",
+      "experiment_name": "credit_eps1p0_seed0",
+      "reproduction_status": "EXECUTED",
+      "command": "python scripts/experiments/run_credit.py --epsilon 1.0 --seed 0",
+      "log": "results/raw/credit/credit_eps1p0_seed0/log.txt",
+      "present": true,
+      "size_bytes": 172654,
+      "sha256": "b950c1e40c587c0ead6b9c28b1d2b45b59109f0281a46cdd8d918f545455d654",
       "metric_check": {
         "against": "summary.final_metrics",
         "match": true,

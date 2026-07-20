@@ -9,6 +9,7 @@ dependencies = [
     # Pinned to the DPSDA commit investigated in docs/research/official-implementation.md.
     "markdown>=3.10.2",
     "openpyxl>=3.1.5",
+    "xlrd>=2.0.1",
     "private-evolution[tabular] @ git+https://github.com/microsoft/DPSDA.git@9078c67995499e6769113780200bbf1d788d3d60",
     "pygments>=2.20.0",
     "pymdown-extensions>=11.0.1",

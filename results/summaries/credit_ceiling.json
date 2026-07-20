@@ -1,0 +1,19 @@
+{
+  "dataset": "Default of Credit Card Clients",
+  "test_n": 6000,
+  "majority_baseline_acc": 77.88,
+  "real_subsample_tabicl": {
+    "acc": 81.48,
+    "macro_f1": 67.53,
+    "train_n": 1000,
+    "auc": 74.88
+  },
+  "real_full_xgboost": {
+    "acc": 81.08,
+    "macro_f1": 67.03,
+    "train_n": 24000,
+    "auc": 75.96
+  },
+  "subsample_n": 1000,
+  "seed": 0
+}

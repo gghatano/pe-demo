@@ -188,6 +188,33 @@ DP 合成の WSD 1/2/3-way = 0.020/0.043/0.071（Adult・Bank より低く、分
 - WSD が全データ中で最も低く、周辺分布の再現が良い。分離しやすい多クラスでは Tab-PE がクラス構造
   をよく保存し、下流 utility が上限に近づく。
 
-3 データを並べると、**同サイズ上限とのギャップはタスクの分離しやすさで決まる**ことが見える:
+## Default of Credit Card Clients（新規データ適用、#50）
+
+数値（金額）列が中心の二値分類。UCI Default of Credit Card Clients（台湾、翌月のデフォルトを
+予測）。与信額・請求額・支払額など**スケールの大きい金額列が多い**点が Adult の capital と同種の
+論点。層化分割、official `TabularEmbedding`・ε=1・30 iter（Adult・Bank・Dry Bean と同条件）、
+単一 seed。準備は `scripts/datasets/credit/preprocess.py`、実行は `scripts/experiments/run_credit.py`、
+上限は `scripts/datasets/credit/measure_ceiling.py`（`results/summaries/credit_ceiling.json`）。
+
+| | acc | macro F1 | AUC |
+|---|---|---|---|
+| 多数派ベースライン | 77.88 | — | — |
+| **DP 合成 ε=1（tabicl）** | 79.42 | **61.27** | 69.15 |
+| real-1000 → real-test（同サイズ上限） | 81.48 | 67.53 | 74.88 |
+| real-full → real-test（xgboost、絶対上限） | 81.08 | 67.03 | 75.96 |
+
+DP 合成の WSD 1/2/3-way = 0.046/0.081/0.113。所見:
+
+- **不均衡二値（多数派 77.9%）で accuracy の余地が小さい**（DP 合成 79.42 は多数派 77.88 のすぐ上、
+  同サイズ上限も 81.48）。Bank・Adult 同様、accuracy では差が見えにくい。
+- **macro F1・AUC は同サイズ上限に ~6 点届かない**（F1 61.27 vs 67.53、AUC 69.15 vs 74.88）。
+  macro F1 が上限に一致した Bank とは違い、Credit は**意味のある指標でもギャップが残る**（Adult 型）。
+- 上限自体が低い（real-1000 と real-full がともに acc ~81）ため、タスクの分離しにくさが主因で、
+  そこに DP 合成のギャップが上乗せされている。スケールの大きい金額列を official min-max がうまく
+  畳めていない可能性（Adult の capital と同型の論点、[🧬 追加分析](adult-embedding.html) #40）があり、
+  埋め込みでの改善余地は今後の課題。単一 seed のため差の大きさは幅を持って読む。判定は `EXECUTED`。
+
+4 データを並べると、**同サイズ上限とのギャップはタスクの分離しやすさで決まる**ことが見える:
 Dry Bean（分離しやすい均衡多クラス）はほぼ一致、Bank（極端不均衡二値）は macro F1 一致・AUC のみ
-差、Adult（重なる不均衡二値）は acc で ~4 点差。判定は `EXECUTED`（公式公表値との比較ではない）。
+差、Adult と Credit（重なる不均衡二値）は意味のある指標（macro F1・AUC）でも ~4〜6 点差。判定は
+すべて `EXECUTED`（公式公表値との比較ではない）。
